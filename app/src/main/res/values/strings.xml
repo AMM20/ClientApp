@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ClientApp</string>
+    <string name="ProjectUse">Project Use:</string>
+    <string name="ServiceType">Service Type:</string>
+    <string name="Academic">Academic</string>
+    <string name="Personal">Personal</string>
+    <string name="Autoservice">Autoservice</string>
+    <string name="PROService">PRO Service</string>
+    <string name="Material">Material:</string>
+    <string name="Thickness">Thickness:</string>
+    <string name="Time">Time:</string>
+    <string name="Date">Date:</string>
+    <string name="ChooseReservationHour">Choose Reservation Hour</string>
 </resources>
