@@ -2,7 +2,7 @@ package martinez.alex.lopez.laura.upc.clientapp;
 
 public class Client {
 
-    private String Name, LastName, Email, Notes, ProjectUse, ServiceType, Material, Thickness, TotalCost, Time;
+    private String Name, LastName, Email, Notes;
     private Integer Phone;
 
     public String getName() {
@@ -29,49 +29,8 @@ public class Client {
         Notes = notes;
     }
 
-    public String getProjectUse() {
-        return ProjectUse;
-    }
-
-    public void setProjectUse(String projectUse) {
-        ProjectUse = projectUse;
-    }
-
-    public String getServiceType() {
-        return ServiceType;
-    }
-
-    public void setServiceType(String serviceType) {
-        ServiceType = serviceType;
-    }
-
-    public void setMaterial(String material) {
-        Material = material;
-    }
-
-    public void setThickness(String thickness) {
-        Thickness = thickness;
-    }
-
-    public String getTotalCost() {
-        return TotalCost;
-    }
-
-    public void setTotalCost(String totalCost) {
-        TotalCost = totalCost;
-    }
-
     public void setPhone(Integer phone) {
         Phone = phone;
     }
-
-    public String getTime() {
-        return Time;
-    }
-
-    public void setTime(String time) {
-        Time = time;
-    }
-
 
 }
