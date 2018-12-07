@@ -12,18 +12,28 @@
     <string name="Date">Date:</string>
     <string name="ChooseReservationHour">Choose Reservation Hour</string>
     <string name="ChooseMaterial">Choose a Material</string>
-    <string name="DM">DM</string>
-    <string name="Cardboard">Cardboard</string>
-    <string name="Posterboard">Poster Board</string>
-    <string name="Plywood">Plywood</string>
-    <string name="Methacrylate">Methacrylate</string>
-    <string name="Other">Other</string>
-    <string name="minor30min"><![CDATA[<30 min]]></string>
-    <string name="t30min">30 min></string>
-    <string name="t45min">45 min></string>
-    <string name="t60min">60 min></string>
-    <string name="t75min">75 min></string>
-    <string name="t90min">90 min></string>
-    <string name="t105min">105 min></string>
-    <string name="t120min">120 min></string>
+    <string name="ChooseTime"> Choose time to reserve</string>
+    <string name="OK">OK</string>
+    <string name="missing_statements_message">Falten camps per omplir</string>
+
+    <array name="materials">
+        <item>DM</item>
+        <item>Cardboard</item>
+        <item>Posterboard</item>
+        <item>Plywood</item>
+        <item>Methacrylate</item>
+        <item>Other</item>
+    </array>
+
+    <array name="time">
+        <item><![CDATA[<30 min]]></item>
+        <item>30 min</item>
+        <item>45 min</item>
+        <item>60 min</item>
+        <item>75 min</item>
+        <item>90 min</item>
+        <item>105 min</item>
+        <item>120 min</item>
+    </array>
+
 </resources>

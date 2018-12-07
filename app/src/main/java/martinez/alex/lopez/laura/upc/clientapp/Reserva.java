@@ -4,26 +4,6 @@ import java.util.List;
 
 public class Reserva {
 
-    public static int[] materials = {
-            R.string.DM,
-            R.string.Plywood,
-            R.string.Cardboard,
-            R.string.Posterboard,
-            R.string.Methacrylate,
-            R.string.Other
-    };
-
-    public static int[] time = {
-            R.string.minor30min,
-            R.string.t30min,
-            R.string.t45min,
-            R.string.t60min,
-            R.string.t75min,
-            R.string.t90min,
-            R.string.t105min,
-            R.string.t120min
-};
-
     private String Date,ProjectUse, ServiceType, Material, Thickness, TotalCost, Time;
     private List<String> ReservedHours;
     private Client client;

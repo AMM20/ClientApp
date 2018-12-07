@@ -30,7 +30,9 @@ public class ServiceActivity extends AppCompatActivity {
     private EditText EditThickness;
     private ImageView LogoView;
 
-    private int Year, Month, Day, Hour, Minute;
+    private int Year, Month, Day;
+
+    private boolean fieldsCheceked = false;
 
 
     @Override
@@ -38,6 +40,8 @@ public class ServiceActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+
+        reserva = new Reserva();
 
         ProjectUseView = findViewById(R.id.ProjectUseView);
         ServiceTypeView = findViewById(R.id.ServiceTypeView);
@@ -68,16 +72,30 @@ public class ServiceActivity extends AppCompatActivity {
 
         OmpleReserva();
 
-        //Intent intent = new Intent(this,ChooseHourActivity.class);
-        //intent.putExtra("reserva",reserva);
-        //intent.putExtra("client",client);
-        //StartActivityForResult(intent,0);
+        if (fieldsCheceked) {
+            //Intent intent = new Intent(this,ChooseHourActivity.class);
+            //intent.putExtra("reserva",reserva);
+            //intent.putExtra("client",client);
+            //StartActivityForResult(intent,0);
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.missing_statements_message);
+
+            builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    return;
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
 
     }
 
     private void OmpleReserva() {
 
-        reserva = new Reserva();
+        fieldsCheceked = true;
 
         int PUchecked = ProjectUseView.getCheckedRadioButtonId();
 
@@ -85,7 +103,7 @@ public class ServiceActivity extends AppCompatActivity {
             reserva.setProjectUse(getString(R.string.Academic));
         } else if (PUchecked == R.id.btn_personal){
             reserva.setProjectUse(getString(R.string.Personal));
-        }
+        } else fieldsCheceked = false;
 
         int STchecked = ServiceTypeView.getCheckedRadioButtonId();
 
@@ -93,13 +111,18 @@ public class ServiceActivity extends AppCompatActivity {
             reserva.setServiceType(getString(R.string.Autoservice));
         } else if (STchecked == R.id.btn_PROservice) {
             reserva.setServiceType(getString(R.string.PROService));
-        }
+        } else fieldsCheceked = false;
 
         reserva.setMaterial(String.valueOf(ChosenMaterial.getText()));
+        if(reserva.getMaterial().equals("")) fieldsCheceked = false;
         reserva.setTime(String.valueOf(ChosenTime.getText()));
+        if(reserva.getTime().equals("")) fieldsCheceked = false;
         reserva.setThickness(String.valueOf(EditThickness.getText()));
+        if(reserva.getThickness().equals("")) fieldsCheceked = false;
 
         reserva.setDate(String.valueOf(ChosenDate.getText()));
+        if(reserva.getDate().equals("dd/mm/yyyy")) fieldsCheceked = false;
+
     }
 
     public void onClickChooseMaterial(View view) {
@@ -107,44 +130,13 @@ public class ServiceActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.ChooseMaterial);
 
-        /*String[] materials = new String[Reserva.materials.length];
-        for (int i = 0; i < materials.length; i++) {
-            materials[i] = getString(Reserva.materials[i]);
-        }
+        final String[] materials = getResources().getStringArray(R.array.materials);
 
         builder.setItems(materials, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                reserva.setMaterial(getString(Reserva.materials[which]));
-                ChosenMaterial.setText(Reserva.materials[which]);
-            }
-        });*/
-
-        String[] materials = {getString(R.string.DM),getString(R.string.Plywood),getString(R.string.Cardboard),getString(R.string.Posterboard),getString(R.string.Methacrylate), getString(R.string.Other)};
-
-        builder.setItems(materials, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0: // DM
-                        ChosenMaterial.setText(getString(R.string.DM));
-                        break;
-                    case 1: // Plywood
-                        ChosenMaterial.setText(getString(R.string.Plywood));
-                        break;
-                    case 2: // Cardboard
-                        ChosenMaterial.setText(getString(R.string.Cardboard));
-                        break;
-                    case 3: // Posterboard
-                        ChosenMaterial.setText(getString(R.string.Posterboard));
-                        break;
-                    case 4: // Methacrylate
-                        ChosenMaterial.setText(getString(R.string.Methacrylate));
-                        break;
-                    case 5: // Other
-                        ChosenMaterial.setText(getString(R.string.Other));
-                        break;
-                }
+                reserva.setMaterial(materials[which]);
+                ChosenMaterial.setText(materials[which]);
             }
         });
 
@@ -156,39 +148,15 @@ public class ServiceActivity extends AppCompatActivity {
     public void onClickChooseTime(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.ChooseMaterial);
+        builder.setTitle(R.string.ChooseTime);
 
-        String[] time = {"<30 min","30 min","45 min","60 min","75 min","90 min","105 min","120 min"};
+        final String[] time = getResources().getStringArray(R.array.time);
 
         builder.setItems(time, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0: // <30 min
-                        ChosenTime.setText("<30 min");
-                        break;
-                    case 1: // 30 min
-                        ChosenTime.setText("30 min");
-                        break;
-                    case 2: // 45 min
-                        ChosenTime.setText("45 min");
-                        break;
-                    case 3: // 60 min
-                        ChosenTime.setText("60 min");
-                        break;
-                    case 4: // 75 min
-                        ChosenTime.setText("75 min");
-                        break;
-                    case 5: // 90 min
-                        ChosenTime.setText("90 min");
-                        break;
-                    case 6: // 105 min
-                        ChosenTime.setText("105 min");
-                        break;
-                    case 7: // 120 min
-                        ChosenTime.setText("120 min");
-                        break;
-                }
+                reserva.setMaterial(time[which]);
+                ChosenTime.setText(time[which]);
             }
         });
 
