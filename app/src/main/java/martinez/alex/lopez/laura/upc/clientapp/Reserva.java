@@ -1,8 +1,11 @@
 package martinez.alex.lopez.laura.upc.clientapp;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Reserva {
+public class Reserva implements Serializable {
 
     private String Date,ProjectUse, ServiceType, Material, Thickness, TotalCost, Time;
     private List<String> ReservedHours;

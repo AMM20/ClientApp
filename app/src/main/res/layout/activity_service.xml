@@ -10,7 +10,7 @@
         android:id="@+id/ClientLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:background="@drawable/rounded_back"
         android:gravity="center"
         android:paddingBottom="4dp"
@@ -20,6 +20,7 @@
         android:text="@string/ProjectUse"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ProjectUseView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ProjectUseView"
@@ -84,6 +85,7 @@
         android:text="@string/ServiceType"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ServiceTypeView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ServiceTypeView"
@@ -130,6 +132,7 @@
         android:text="@string/Material"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/ChosenMaterial"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Material" />
@@ -144,6 +147,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="6dp"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/EditThickness"
         app:layout_constraintStart_toEndOf="@+id/MaterialLabel"
         app:layout_constraintTop_toBottomOf="@+id/ServiceTypeView"
@@ -179,9 +183,21 @@
         android:text="@string/Thickness"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/EditThickness"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Gruix" />
+
+    <TextView
+        android:id="@+id/ThicknessLimitLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="(0 - 10 mm)"
+        app:layout_constraintBaseline_toBaselineOf="@+id/mmLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mmLabel" />
 
     <TextView
         android:id="@+id/TimeLabel"
@@ -197,6 +213,7 @@
         android:text="@string/Time"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/ChosenTime"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Temps" />
@@ -210,6 +227,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="6dp"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/CalendarButton"
         app:layout_constraintStart_toStartOf="@+id/ChosenMaterial"
         app:layout_constraintTop_toBottomOf="@+id/EditThickness"
@@ -244,6 +262,7 @@
         android:text="@string/Date"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/CalendarButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/CalendarButton"
@@ -281,6 +300,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="dd/mm/yyyy"
+        android:textColor="@android:color/black"
         app:layout_constraintBaseline_toBaselineOf="@+id/ChooseDateLabel"
         app:layout_constraintStart_toStartOf="@+id/mmLabel"
         tools:text="dd/mm/yyyy" />

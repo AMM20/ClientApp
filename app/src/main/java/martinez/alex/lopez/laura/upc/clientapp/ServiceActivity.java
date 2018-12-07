@@ -2,6 +2,7 @@ package martinez.alex.lopez.laura.upc.clientapp;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -72,10 +73,9 @@ public class ServiceActivity extends AppCompatActivity {
         OmpleReserva();
 
         if (fieldsCheceked) {
-            //Intent intent = new Intent(this,ChooseHourActivity.class);
-            //intent.putExtra("reserva",reserva);
-            //intent.putExtra("client",client);
-            //StartActivityForResult(intent,0);
+            Intent intent = new Intent(this,ChooseHoursActivity.class);
+            intent.putExtra("reserva", reserva);
+            startActivityForResult(intent,0);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.missing_statements_message);
@@ -127,7 +127,7 @@ public class ServiceActivity extends AppCompatActivity {
     public void onClickChooseMaterial(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.BTNChooseMaterial);
+        builder.setTitle(R.string.ChooseMaterial);
 
         final String[] materials = getResources().getStringArray(R.array.materials);
 
@@ -147,7 +147,7 @@ public class ServiceActivity extends AppCompatActivity {
     public void onClickChooseTime(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.BTNChooseTime);
+        builder.setTitle(R.string.ChooseTime);
 
         final String[] time = getResources().getStringArray(R.array.time);
 
