@@ -2,7 +2,6 @@ package martinez.alex.lopez.laura.upc.clientapp;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -128,7 +127,7 @@ public class ServiceActivity extends AppCompatActivity {
     public void onClickChooseMaterial(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.ChooseMaterial);
+        builder.setTitle(R.string.BTNChooseMaterial);
 
         final String[] materials = getResources().getStringArray(R.array.materials);
 
@@ -148,7 +147,7 @@ public class ServiceActivity extends AppCompatActivity {
     public void onClickChooseTime(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.ChooseTime);
+        builder.setTitle(R.string.BTNChooseTime);
 
         final String[] time = getResources().getStringArray(R.array.time);
 

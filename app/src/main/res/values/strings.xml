@@ -10,9 +10,11 @@
     <string name="Thickness">Thickness:</string>
     <string name="Time">Time:</string>
     <string name="Date">Date:</string>
-    <string name="ChooseReservationHour">Choose Reservation Hour</string>
-    <string name="ChooseMaterial">Choose a Material</string>
-    <string name="ChooseTime"> Choose time to reserve</string>
+    <string name="BTNChooseReservationHour">Choose Reservation Hour</string>
+    <string name="BTNChooseMaterial">Choose a Material</string>
+    <string name="BTNChooseTime">Choose time to reserve</string>
+    <string name="BTNNext">Next</string>
+
     <string name="OK">OK</string>
     <string name="missing_statements_message">Falten camps per omplir</string>
 

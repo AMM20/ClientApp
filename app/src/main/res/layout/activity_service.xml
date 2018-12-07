@@ -267,7 +267,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="onClickChooseHour"
-        android:text="@string/ChooseReservationHour"
+        android:text="@string/BTNChooseReservationHour"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
