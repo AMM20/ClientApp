@@ -18,7 +18,10 @@
     <string name="BTNNext">Next</string>
 
     <string name="OK">OK</string>
-    <string name="missing_statements_message">Falten camps per omplir</string>
+    <string name="missing_statements_message">Some required fields are missing.</string>
+    <string name="PRO_service_info_message">A FABLAB employee will do the task.</string>
+    <string name="missing_turns_message">All required turns have not been selected.</string>
+
 
     <array name="materials">
         <item>DM</item>
@@ -30,7 +33,7 @@
     </array>
 
     <array name="time">
-        <item><![CDATA[<30 min]]></item>
+        <item>15 min</item>
         <item>30 min</item>
         <item>45 min</item>
         <item>60 min</item>

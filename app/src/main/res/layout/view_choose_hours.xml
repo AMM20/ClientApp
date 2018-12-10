@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,23 +13,98 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:onClick="onClickChooseTurn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rounded_back" />
+        app:srcCompat="@drawable/rounded_back_transparent" />
 
     <TextView
         android:id="@+id/HourLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="16:"
         android:textColor="@android:color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ItemBackgroundView"
-        app:layout_constraintEnd_toEndOf="@+id/ItemBackgroundView"
+        app:layout_constraintEnd_toStartOf="@+id/t00Button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/ItemBackgroundView"
         app:layout_constraintStart_toStartOf="@+id/ItemBackgroundView"
         app:layout_constraintTop_toTopOf="@+id/ItemBackgroundView" />
+
+    <TextView
+        android:id="@+id/t00Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_back_transparent"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp"
+        android:text="00"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:onClick="onClickChooseTurn"
+        app:layout_constraintBaseline_toBaselineOf="@+id/HourLabel"
+        app:layout_constraintEnd_toStartOf="@+id/t15Button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/HourLabel" />
+
+    <TextView
+        android:id="@+id/t15Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_back_transparent"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp"
+        android:text="15"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:onClick="onClickChooseTurn"
+        app:layout_constraintBaseline_toBaselineOf="@+id/HourLabel"
+        app:layout_constraintEnd_toStartOf="@+id/t30Button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/t00Button" />
+
+    <TextView
+        android:id="@+id/t30Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_back_transparent"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp"
+        android:text="30"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:onClick="onClickChooseTurn"
+        app:layout_constraintBaseline_toBaselineOf="@+id/HourLabel"
+        app:layout_constraintEnd_toStartOf="@+id/t45Button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/t15Button" />
+
+    <TextView
+        android:id="@+id/t45Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_back_transparent"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp"
+        android:text="45"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:onClick="onClickChooseTurn"
+        app:layout_constraintBaseline_toBaselineOf="@+id/HourLabel"
+        app:layout_constraintEnd_toEndOf="@+id/ItemBackgroundView"
+        app:layout_constraintStart_toEndOf="@+id/t30Button" />
 
 </android.support.constraint.ConstraintLayout>

@@ -12,28 +12,50 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseHoursActivity extends AppCompatActivity {
 
-    // TODO Falta redissenyar el layout per a que es mostrin les hores lliures i les ocupades.
-    // TODO Falta permetre escollir l'hora a la qual iniciarà el torn de la reserva actual.
+    class Turn {
+        String hour;
+        boolean checked[];
 
-    private List<String> hours;
+        public Turn(String hour) {
+            this.hour = hour;
+            this.checked = new boolean[4];
+        }
+    }
+
+    //private List<String> hours;
     private RecyclerView HourListView;
     private Adapter adapter;
+    private Reserva reserva;
+    private int time;
+
+    private int checkedturns=0;
+    private List<Turn> reservedHours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_hours);
 
+        reservedHours = new ArrayList<>();
+
         String[] array = getResources().getStringArray(R.array.hours);
-        hours = Arrays.asList(array);
+
+        for (int i = 0; i < array.length; i++) {
+            reservedHours.add(new Turn(array[i]));
+        }
+
+        //reservedHours.get(1).checked[2] = true;
 
         Intent intent = getIntent();
-        Reserva reserva = (Reserva) intent.getSerializableExtra("reserva");
+        reserva = (Reserva) intent.getSerializableExtra("reserva");
+
+        String[] time = reserva.getTime().split(" ");
+        this.time = Integer.parseInt(time[0]);
 
         HourListView = findViewById(R.id.HourListView);
 
@@ -42,21 +64,99 @@ public class ChooseHoursActivity extends AppCompatActivity {
         HourListView.setAdapter(adapter);
     }
 
-    private void onClickChooseTurn(int position) {
+    public void onClickChooseTurn(int pos, int turn) {
 
+        boolean prevValue = reservedHours.get(pos).checked[turn];
+
+        if (!prevValue && (checkedturns>=this.time/15)) {
+            return;
+        }
+
+        else {
+            reservedHours.get(pos).checked[turn] = !prevValue;
+            if (reservedHours.get(pos).checked[turn]){
+                checkedturns++;
+            }
+            else {
+                checkedturns--;
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
+    public void onClickNext(View view) {
+
+        if (checkedturns<this.time/15){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.missing_turns_message);
+
+            builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    return;
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+        else {
+
+            //Intent intent = new Intent(this,DetailsActivity.class);
+            //intent.putExtra("reserva", reserva);
+            //startActivityForResult(intent,0);
+
+        }
+    }
+
+
     class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView t00Button;
+        private TextView t15Button;
+        private TextView t30Button;
+        private TextView t45Button;
         private TextView HourLabel;
 
         public ViewHolder(View HourView) {
             super(HourView);
-            HourLabel = HourView.findViewById(R.id.HourLabel);
 
-            HourView.setOnClickListener(new View.OnClickListener() {
+            HourLabel = HourView.findViewById(R.id.HourLabel);
+            t00Button = HourView.findViewById(R.id.t00Button);
+            t15Button = HourView.findViewById(R.id.t15Button);
+            t30Button = HourView.findViewById(R.id.t30Button);
+            t45Button = HourView.findViewById(R.id.t45Button);
+
+
+            t00Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickChooseTurn(getAdapterPosition());
+                    int pos = getAdapterPosition();
+                    onClickChooseTurn(pos, 0);
+                }
+            });
+
+            t15Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    onClickChooseTurn(pos, 1);
+                }
+            });
+
+            t30Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    onClickChooseTurn(pos, 2);
+                }
+            });
+
+            t45Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    onClickChooseTurn(pos, 3);
                 }
             });
         }
@@ -73,17 +173,43 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            String hour = hours.get(position);
-            holder.HourLabel.setText(hour);
+            Turn turn = reservedHours.get(position);
+            holder.HourLabel.setText(turn.hour);
+            if (turn.checked[0]) {
+                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+            }
+            if (!turn.checked[0]) {
+                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+            }
+
+            if (turn.checked[1]) {
+                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+            }
+            if (!turn.checked[1]) {
+                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+            }
+
+            if (turn.checked[2]) {
+                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+            }
+            if (!turn.checked[2]) {
+                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+            }
+
+            if (turn.checked[3]) {
+                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+            }
+            if (!turn.checked[3]) {
+                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+            }
+
         }
 
         @Override
         public int getItemCount() {
-            return hours.size();
+            return reservedHours.size();
         }
     }
-
-
 
 }
 

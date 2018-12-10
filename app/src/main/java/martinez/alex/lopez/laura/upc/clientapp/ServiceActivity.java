@@ -180,4 +180,20 @@ public class ServiceActivity extends AppCompatActivity {
         datePickerDialog.show();
 
     }
+
+    public void onClickShowInfo(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+                .setMessage(R.string.PRO_service_info_message)
+                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
 }
