@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import java.io.Serializable;
+
 public class DetailsActivity extends AppCompatActivity {
 
     private Reserva reserva;
@@ -31,6 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         client = new Client();
 
+
         EditName = findViewById(R.id.EditName);
         EditLastName = findViewById(R.id.EditLastName);
         EditEmail = findViewById(R.id.EditEmail);
@@ -45,9 +48,12 @@ public class DetailsActivity extends AppCompatActivity {
 
         if (fieldsChecked) {
             reserva.setClient(client);
-            //Intent intent = new Intent(this,SummaryActivity.class);
-            //intent.putExtra("reserva", reserva);
-            //startActivityForResult(intent,0);
+            Intent intent = new Intent(this,SummaryActivity.class);
+            intent.putExtra("reserva", reserva);
+
+            //intent.putExtra("client", (Serializable) client);
+
+            startActivityForResult(intent,0);
         }else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.missing_statements_message);
