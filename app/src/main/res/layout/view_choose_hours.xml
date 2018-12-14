@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rounded_back_transparent" />
+        app:srcCompat="@drawable/rounded_back_unmarked" />
 
     <TextView
         android:id="@+id/HourLabel"
@@ -39,7 +39,7 @@
         android:id="@+id/t00Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_back_transparent"
+        android:background="@drawable/rounded_back_unmarked"
         android:paddingBottom="8dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
@@ -57,7 +57,7 @@
         android:id="@+id/t15Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_back_transparent"
+        android:background="@drawable/rounded_back_unmarked"
         android:paddingBottom="8dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
@@ -75,7 +75,7 @@
         android:id="@+id/t30Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_back_transparent"
+        android:background="@drawable/rounded_back_unmarked"
         android:paddingBottom="8dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_back_transparent"
+        android:background="@drawable/rounded_back_unmarked"
         android:paddingBottom="8dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"

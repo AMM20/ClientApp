@@ -27,8 +27,6 @@ public class ChooseHoursActivity extends AppCompatActivity {
         }
     }
 
-    //private List<String> hours;
-    private RecyclerView HourListView;
     private Adapter adapter;
     private Reserva reserva;
     private int time;
@@ -57,11 +55,11 @@ public class ChooseHoursActivity extends AppCompatActivity {
         String[] time = reserva.getTime().split(" ");
         this.time = Integer.parseInt(time[0]);
 
-        HourListView = findViewById(R.id.HourListView);
+        RecyclerView hourListView = findViewById(R.id.HourListView);
 
-        HourListView.setLayoutManager(new LinearLayoutManager(this));
+        hourListView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter();
-        HourListView.setAdapter(adapter);
+        hourListView.setAdapter(adapter);
     }
 
     public void onClickChooseTurn(int pos, int turn) {
@@ -93,7 +91,6 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
             builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    return;
                 }
             });
 
@@ -103,9 +100,9 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
         else {
 
-            //Intent intent = new Intent(this,DetailsActivity.class);
-            //intent.putExtra("reserva", reserva);
-            //startActivityForResult(intent,0);
+            Intent intent = new Intent(this,DetailsActivity.class);
+            intent.putExtra("reserva", reserva);
+            startActivityForResult(intent,0);
 
         }
     }
@@ -176,31 +173,31 @@ public class ChooseHoursActivity extends AppCompatActivity {
             Turn turn = reservedHours.get(position);
             holder.HourLabel.setText(turn.hour);
             if (turn.checked[0]) {
-                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
             }
             if (!turn.checked[0]) {
-                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
             }
 
             if (turn.checked[1]) {
-                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
             }
             if (!turn.checked[1]) {
-                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
             }
 
             if (turn.checked[2]) {
-                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
             }
             if (!turn.checked[2]) {
-                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
             }
 
             if (turn.checked[3]) {
-                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_green));
+                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
             }
             if (!turn.checked[3]) {
-                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_transparent));
+                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
             }
 
         }

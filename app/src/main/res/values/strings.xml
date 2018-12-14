@@ -21,6 +21,15 @@
     <string name="missing_statements_message">Some required fields are missing.</string>
     <string name="PRO_service_info_message">A FABLAB employee will do the task.</string>
     <string name="missing_turns_message">All required turns have not been selected.</string>
+    <string name="Name">Name*</string>
+    <string name="LastName">Last Name*</string>
+    <string name="Email">Email*</string>
+    <string name="Phone">Phone*</string>
+    <string name="Notes">Notes</string>
+
+
+    <string name="BTNConfirm">Confirm</string>
+    <string name="RequiredFields">* Required Fields</string>
 
 
     <array name="materials">

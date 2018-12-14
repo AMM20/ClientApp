@@ -2,7 +2,10 @@ package martinez.alex.lopez.laura.upc.clientapp;
 
 public class Client {
 
+
+
     private String Name, LastName, Email, Notes;
+
     private Integer Phone;
 
     public String getName() {
@@ -25,12 +28,20 @@ public class Client {
         Email = email;
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
     public void setNotes(String notes) {
         Notes = notes;
     }
 
     public void setPhone(Integer phone) {
         Phone = phone;
+    }
+
+    public Integer getPhone() {
+        return Phone;
     }
 
 }

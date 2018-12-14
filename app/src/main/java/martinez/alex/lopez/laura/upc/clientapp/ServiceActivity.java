@@ -32,7 +32,7 @@ public class ServiceActivity extends AppCompatActivity {
 
     private int Year, Month, Day;
 
-    private boolean fieldsCheceked = false;
+    private boolean fieldsChecked = false;
 
 
     @Override
@@ -72,7 +72,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         OmpleReserva();
 
-        if (fieldsCheceked) {
+        if (fieldsChecked) {
             Intent intent = new Intent(this,ChooseHoursActivity.class);
             intent.putExtra("reserva", reserva);
             startActivityForResult(intent,0);
@@ -94,7 +94,7 @@ public class ServiceActivity extends AppCompatActivity {
 
     private void OmpleReserva() {
 
-        fieldsCheceked = true;
+        fieldsChecked = true;
 
         int PUchecked = ProjectUseView.getCheckedRadioButtonId();
 
@@ -102,7 +102,7 @@ public class ServiceActivity extends AppCompatActivity {
             reserva.setProjectUse(getString(R.string.Academic));
         } else if (PUchecked == R.id.btn_personal){
             reserva.setProjectUse(getString(R.string.Personal));
-        } else fieldsCheceked = false;
+        } else fieldsChecked = false;
 
         int STchecked = ServiceTypeView.getCheckedRadioButtonId();
 
@@ -110,17 +110,17 @@ public class ServiceActivity extends AppCompatActivity {
             reserva.setServiceType(getString(R.string.Autoservice));
         } else if (STchecked == R.id.btn_PROservice) {
             reserva.setServiceType(getString(R.string.PROService));
-        } else fieldsCheceked = false;
+        } else fieldsChecked = false;
 
         reserva.setMaterial(String.valueOf(ChosenMaterial.getText()));
-        if(reserva.getMaterial().equals("")) fieldsCheceked = false;
+        if(reserva.getMaterial().equals("")) fieldsChecked = false;
         reserva.setTime(String.valueOf(ChosenTime.getText()));
-        if(reserva.getTime().equals("")) fieldsCheceked = false;
+        if(reserva.getTime().equals("")) fieldsChecked = false;
         reserva.setThickness(String.valueOf(EditThickness.getText()));
-        if(reserva.getThickness().equals("")) fieldsCheceked = false;
+        if(reserva.getThickness().equals("")) fieldsChecked = false;
 
         reserva.setDate(String.valueOf(ChosenDate.getText()));
-        if(reserva.getDate().equals("dd/mm/yyyy")) fieldsCheceked = false;
+        if(reserva.getDate().equals("dd/mm/yyyy")) fieldsChecked = false;
 
     }
 
