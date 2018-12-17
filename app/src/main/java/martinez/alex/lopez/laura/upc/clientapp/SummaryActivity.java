@@ -22,6 +22,7 @@ public class SummaryActivity extends AppCompatActivity {
     private TextView ClientTotalCost;
 
     private int time;
+    private int end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class SummaryActivity extends AppCompatActivity {
         ClientName = findViewById(R.id.ClientName);
         ClientLastName = findViewById(R.id.ClientLastName);
         ClientReservationDate = findViewById(R.id.ClientReservationDate);
-        ClientReservationHour = findViewById(R.id.ClientReservationDate);
+        ClientReservationHour = findViewById(R.id.ClientReservationHour);
         ClientServiceType = findViewById(R.id.ClientServiceType);
         ClientProjectUse = findViewById(R.id.ClientProjectUse);
         ClientTotalCost = findViewById(R.id.ClientTotalCost);
@@ -65,7 +66,16 @@ public class SummaryActivity extends AppCompatActivity {
 
         }
 
-        ClientReservationDate.setText(reserva.getReservedHours().get(0) + " - " + reserva.getReservedHours().get(reserva.getReservedHours().size()));
+        String TurnStart = reserva.getReservedHours().get(0);
+        String[] hour = reserva.getReservedHours().get(reserva.getReservedHours().size()-1).split(":");
+        this.end = Integer.parseInt(hour[1]);
+        int EndHour = end + 15;
+        String TurnEnd = hour[0] + String.valueOf(EndHour);
+
+
+        String ReservedTurn = TurnStart + " - " + TurnEnd;
+
+        ClientReservationHour.setText(ReservedTurn);
 
     }
 }

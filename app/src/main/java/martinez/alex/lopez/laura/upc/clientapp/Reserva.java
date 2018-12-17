@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Reserva implements Serializable {
 
+    //TODO Cambiar tipo de variable de la fecha a Date
+
     private String Date,ProjectUse, ServiceType, Material, Thickness, TotalCost, Time;
     private List<String> ReservedHours;
     private Client client;

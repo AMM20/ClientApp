@@ -12,7 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChooseHoursActivity extends AppCompatActivity {
@@ -27,12 +35,17 @@ public class ChooseHoursActivity extends AppCompatActivity {
         }
     }
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private Adapter adapter;
     private Reserva reserva;
     private int time;
 
     private int checkedturns=0;
     private List<Turn> reservedHours;
+
+    //TODO: Poner un ejemplo de reserva en la base de datos para poder ver las horas ocupadas y no permitir seleccionarlas.
+    //TODO: Modificar la manera de introducir las horas a reservar. En vez de seleccionarlas individualmente, hacerlo por paquetes, segun el tiempo que se ha reservado.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +73,21 @@ public class ChooseHoursActivity extends AppCompatActivity {
         hourListView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter();
         hourListView.setAdapter(adapter);
+
+        // Se añade un Listener que nos avisa cada vez que la colección de Firestore (Firebase) sufre algun cambio.
+
+
+
+        db.collection("reservas").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                for (DocumentSnapshot doc : documentSnapshots) {
+                    Date inicio = doc.getDate("inicio");
+                    Long minutos = doc.getLong("minutos");
+
+                }
+            }
+        });
     }
 
     public void onClickChooseTurn(int pos, int turn) {
@@ -115,19 +143,19 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
         for (int i = 0; i < reservedHours.size(); i++) {
             Turn t = reservedHours.get(i);
-            for (int j = 0; i < t.checked.length; i++) {
+            for (int j = 0; j < t.checked.length; j++) {
                 if (t.checked[j]) {
                     if (j==0){
-                        HourList.add(t.hour + ":00");
+                        HourList.add(t.hour + "00");
                     }
                     if (j==1){
-                        HourList.add(t.hour + ":15");
+                        HourList.add(t.hour + "15");
                     }
                     if (j==2){
-                        HourList.add(t.hour + ":30");
+                        HourList.add(t.hour + "30");
                     }
                     if (j==3){
-                        HourList.add(t.hour + ":45");
+                        HourList.add(t.hour + "45");
                     }
 
                 }
