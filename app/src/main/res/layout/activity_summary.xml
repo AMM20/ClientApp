@@ -116,8 +116,8 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/ReservationHourLabel"
-        app:layout_constraintEnd_toEndOf="@+id/ClientReservationDate"
-        app:layout_constraintStart_toStartOf="@+id/ClientReservationDate"
+        app:layout_constraintEnd_toEndOf="@+id/ClientLastName"
+        app:layout_constraintStart_toStartOf="@+id/ClientLastName"
         tools:text="16:00 - 16:30" />
 
     <TextView
@@ -143,20 +143,20 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/ServiceTypeLabel"
-        app:layout_constraintEnd_toEndOf="@+id/ClientReservationHour"
-        app:layout_constraintStart_toStartOf="@+id/ClientReservationDate"
+        app:layout_constraintEnd_toEndOf="@+id/ClientLastName"
+        app:layout_constraintStart_toStartOf="@+id/ClientLastName"
         tools:text="Servei PRO" />
 
     <TextView
-        android:id="@+id/clientProjectUse"
+        android:id="@+id/ClientProjectUse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/ProjectUseLabel"
-        app:layout_constraintEnd_toEndOf="@+id/ClientServiceType"
-        app:layout_constraintStart_toStartOf="@+id/ClientServiceType"
+        app:layout_constraintEnd_toEndOf="@+id/ClientLastName"
+        app:layout_constraintStart_toStartOf="@+id/ClientLastName"
         tools:text="Acadèmic" />
 
     <TextView
@@ -210,7 +210,7 @@
         tools:text="PREU TOTAL:" />
 
     <TextView
-        android:id="@+id/ClientTotalPrice"
+        android:id="@+id/ClientTotalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

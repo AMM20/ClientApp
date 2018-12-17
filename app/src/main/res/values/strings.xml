@@ -31,14 +31,16 @@
     <string name="BTNConfirm">Confirm</string>
     <string name="RequiredFields">* Required Fields</string>
 
-    <string name="ReservationDate">Reservation Date</string>
-    <string name="ReservationHour">Reservation Hour</string>
-    <string name="ClientName">Name</string>
-    <string name="ClientLastName">Last Name</string>
-    <string name="ServiceTypeSummary">ServiceType</string>
-    <string name="ProjectUseSummary">ProjectUse</string>
+    <string name="ReservationDate">Reservation Date:</string>
+    <string name="ReservationHour">Reservation Hour:</string>
+    <string name="ClientName">Name:</string>
+    <string name="ClientLastName">Last Name:</string>
+    <string name="ServiceTypeSummary">Service Type:</string>
+    <string name="ProjectUseSummary">Project Use:</string>
     <string name="TotalCost">Total Cost:</string>
     <string name="BTNConfirmReservation">Confirm Reservation</string>
+
+    <string name="TotalCostAcademic">FREE</string>
 
 
     <array name="materials">

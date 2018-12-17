@@ -52,8 +52,8 @@ public class ChooseHoursActivity extends AppCompatActivity {
         Intent intent = getIntent();
         reserva = (Reserva) intent.getSerializableExtra("reserva");
 
-        String[] time = reserva.getTime().split(" ");
-        this.time = Integer.parseInt(time[0]);
+        String[] ReservationTime = reserva.getTime().split(" ");
+        this.time = Integer.parseInt(ReservationTime[0]);
 
         RecyclerView hourListView = findViewById(R.id.HourListView);
 
