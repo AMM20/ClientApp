@@ -100,11 +100,42 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
         else {
 
+            OmpleReservedHours();
+
             Intent intent = new Intent(this,DetailsActivity.class);
             intent.putExtra("reserva", reserva);
             startActivityForResult(intent,0);
 
         }
+    }
+
+    private void OmpleReservedHours() {
+
+        List<String> HourList = new ArrayList<>();
+
+        for (int i = 0; i < reservedHours.size(); i++) {
+            Turn t = reservedHours.get(i);
+            for (int j = 0; i < t.checked.length; i++) {
+                if (t.checked[j]) {
+                    if (j==0){
+                        HourList.add(t.hour + ":00");
+                    }
+                    if (j==1){
+                        HourList.add(t.hour + ":15");
+                    }
+                    if (j==2){
+                        HourList.add(t.hour + ":30");
+                    }
+                    if (j==3){
+                        HourList.add(t.hour + ":45");
+                    }
+
+                }
+            }
+        }
+
+        reserva.setReservedHours(HourList);
+
     }
 
 

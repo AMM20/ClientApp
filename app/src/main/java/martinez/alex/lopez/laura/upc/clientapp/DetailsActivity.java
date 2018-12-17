@@ -33,7 +33,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         client = new Client();
 
-
         EditName = findViewById(R.id.EditName);
         EditLastName = findViewById(R.id.EditLastName);
         EditEmail = findViewById(R.id.EditEmail);
@@ -50,8 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
             reserva.setClient(client);
             Intent intent = new Intent(this,SummaryActivity.class);
             intent.putExtra("reserva", reserva);
-
-            //intent.putExtra("client", (Serializable) client);
+            intent.putExtra("client", client);
 
             startActivityForResult(intent,0);
         }else {

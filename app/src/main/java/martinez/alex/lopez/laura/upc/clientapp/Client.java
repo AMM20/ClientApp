@@ -1,6 +1,8 @@
 package martinez.alex.lopez.laura.upc.clientapp;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable {
 
 
 
