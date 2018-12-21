@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,10 +27,12 @@ public class ChooseHoursActivity extends AppCompatActivity {
     class Turn {
         String hour;
         boolean checked[];
+        boolean reserved[];
 
         public Turn(String hour) {
             this.hour = hour;
             this.checked = new boolean[4];
+            this.reserved = new boolean[4];
         }
     }
 
@@ -45,7 +46,7 @@ public class ChooseHoursActivity extends AppCompatActivity {
     private List<Turn> reservedHours;
 
     //TODO: Poner un ejemplo de reserva en la base de datos para poder ver las horas ocupadas y no permitir seleccionarlas.
-    //TODO: Modificar la manera de introducir las horas a reservar. En vez de seleccionarlas individualmente, hacerlo por paquetes, segun el tiempo que se ha reservado.
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,6 @@ public class ChooseHoursActivity extends AppCompatActivity {
         for (int i = 0; i < array.length; i++) {
             reservedHours.add(new Turn(array[i]));
         }
-
-        //reservedHours.get(1).checked[2] = true;
 
         Intent intent = getIntent();
         reserva = (Reserva) intent.getSerializableExtra("reserva");
@@ -76,23 +75,23 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
         // Se añade un Listener que nos avisa cada vez que la colección de Firestore (Firebase) sufre algun cambio.
 
-
-
         db.collection("reservas").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 for (DocumentSnapshot doc : documentSnapshots) {
-                    Date inicio = doc.getDate("inicio");
-                    Long minutos = doc.getLong("minutos");
+                    //Date inicio = doc.getDate("inicio");
+                    //Long minutos = doc.getLong("minutos");
 
                 }
             }
         });
     }
 
+    //TODO: Modificar la manera de introducir las horas a reservar. En vez de seleccionarlas individualmente, hacerlo por paquetes, segun el tiempo que se ha reservado.
+
     public void onClickChooseTurn(int pos, int turn) {
 
-        boolean prevValue = reservedHours.get(pos).checked[turn];
+        /*boolean prevValue = reservedHours.get(pos).checked[turn];
 
         if (!prevValue && (checkedturns>=this.time/15)) {
             return;
@@ -106,8 +105,39 @@ public class ChooseHoursActivity extends AppCompatActivity {
             else {
                 checkedturns--;
             }
-        }
+        }*/
 
+        boolean prevValue = reservedHours.get(pos).checked[turn];
+        boolean isReserved = reservedHours.get(pos).reserved[turn];
+
+        if ((!prevValue && (checkedturns>=this.time/15)) || isReserved) {
+            return;
+        }
+        else if (!prevValue && (checkedturns<this.time/15) && !isReserved) {
+
+            for (int i = 0; i < this.time/15; i++) {
+
+                if (reservedHours.get(pos + (turn+i)/4 ).reserved[(turn + i)%4]) {
+                    return;
+                }
+                else {
+                  
+                    reservedHours.get(pos + (turn+i)/4).checked[(turn+i)%4] = !prevValue;
+                }
+            }
+                checkedturns = this.time/15;
+            }
+        /*else if (prevValue) {
+            if (!reservedHours.get(pos - 1).checked[turn]){
+                for (int i = 0; i < this.time/15; i++) {
+                    reservedHours.get(pos + i).checked[turn] = !prevValue;
+                }
+                checkedturns = 0;
+            }
+            else {
+
+            }
+        }*/
         adapter.notifyDataSetChanged();
     }
 
@@ -172,12 +202,12 @@ public class ChooseHoursActivity extends AppCompatActivity {
         private TextView t15Button;
         private TextView t30Button;
         private TextView t45Button;
-        private TextView HourLabel;
+        private TextView hourLabel;
 
         public ViewHolder(View HourView) {
             super(HourView);
 
-            HourLabel = HourView.findViewById(R.id.HourLabel);
+            hourLabel = HourView.findViewById(R.id.HourLabel);
             t00Button = HourView.findViewById(R.id.t00Button);
             t15Button = HourView.findViewById(R.id.t15Button);
             t30Button = HourView.findViewById(R.id.t30Button);
@@ -223,14 +253,14 @@ public class ChooseHoursActivity extends AppCompatActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View HourView = getLayoutInflater().inflate(R.layout.view_choose_hours,parent,false);
-            return new ViewHolder(HourView);
+            View hourView = getLayoutInflater().inflate(R.layout.view_choose_hours,parent,false);
+            return new ViewHolder(hourView);
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Turn turn = reservedHours.get(position);
-            holder.HourLabel.setText(turn.hour);
+            holder.hourLabel.setText(turn.hour);
             if (turn.checked[0]) {
                 holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
             }

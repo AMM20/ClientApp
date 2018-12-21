@@ -8,18 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import java.io.Serializable;
-
 public class DetailsActivity extends AppCompatActivity {
 
     private Reserva reserva;
     private Client client;
 
-    private EditText EditName;
-    private EditText EditLastName;
-    private EditText EditEmail;
-    private EditText EditPhone;
-    private EditText EditNotes;
+    private EditText editName;
+    private EditText editLastName;
+    private EditText editEmail;
+    private EditText editPhone;
+    private EditText editNotes;
 
     private boolean fieldsChecked = false;
 
@@ -33,11 +31,11 @@ public class DetailsActivity extends AppCompatActivity {
 
         client = new Client();
 
-        EditName = findViewById(R.id.EditName);
-        EditLastName = findViewById(R.id.EditLastName);
-        EditEmail = findViewById(R.id.EditEmail);
-        EditPhone = findViewById(R.id.EditPhone);
-        EditNotes = findViewById(R.id.EditNotes);
+        editName = findViewById(R.id.EditName);
+        editLastName = findViewById(R.id.EditLastName);
+        editEmail = findViewById(R.id.EditEmail);
+        editPhone = findViewById(R.id.EditPhone);
+        editNotes = findViewById(R.id.EditNotes);
 
     }
 
@@ -71,19 +69,19 @@ public class DetailsActivity extends AppCompatActivity {
 
         fieldsChecked = true;
 
-        client.setName(String.valueOf(EditName.getText()));
+        client.setName(String.valueOf(editName.getText()));
         if (client.getName().equals("")) fieldsChecked = false;
 
-        client.setLastName(String.valueOf(EditLastName.getText()));
+        client.setLastName(String.valueOf(editLastName.getText()));
         if (client.getLastName().equals("")) fieldsChecked = false;
 
-        client.setEmail(String.valueOf(EditEmail.getText()));
+        client.setEmail(String.valueOf(editEmail.getText()));
         if (client.getEmail().equals("")) fieldsChecked = false;
 
-        if (String.valueOf(EditPhone.getText()).equals("")) fieldsChecked = false;
-        else client.setPhone(Integer.parseInt(String.valueOf(EditPhone.getText())));
+        if (String.valueOf(editPhone.getText()).equals("")) fieldsChecked = false;
+        else client.setPhone(Integer.parseInt(String.valueOf(editPhone.getText())));
 
-        client.setNotes(String.valueOf(EditNotes.getText()));
+        client.setNotes(String.valueOf(editNotes.getText()));
 
     }
 }

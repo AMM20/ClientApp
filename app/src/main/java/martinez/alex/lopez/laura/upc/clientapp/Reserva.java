@@ -1,80 +1,78 @@
 package martinez.alex.lopez.laura.upc.clientapp;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class Reserva implements Serializable {
 
-    //TODO Cambiar tipo de variable de la fecha a Date
-
-    private String Date,ProjectUse, ServiceType, Material, Thickness, TotalCost, Time;
-    private List<String> ReservedHours;
+    private String projectUse, serviceType, material, thickness, totalCost, time;
+    private Date date;
+    private List<String> reservedHours;
     private Client client;
 
     public String getProjectUse() {
-        return ProjectUse;
+        return projectUse;
     }
 
     public void setProjectUse(String projectUse) {
-        ProjectUse = projectUse;
+        this.projectUse = projectUse;
     }
 
     public String getServiceType() {
-        return ServiceType;
+        return serviceType;
     }
 
     public void setServiceType(String serviceType) {
-        ServiceType = serviceType;
+        this.serviceType = serviceType;
     }
 
     public String getMaterial() {
-        return Material;
+        return material;
     }
 
     public void setMaterial(String material) {
-        Material = material;
+        this.material = material;
     }
 
     public String getThickness() {
-        return Thickness;
+        return thickness;
     }
 
     public void setThickness(String thickness) {
-        Thickness = thickness;
+        this.thickness = thickness;
     }
 
     public String getTotalCost() {
-        return TotalCost;
+        return totalCost;
     }
 
     public void setTotalCost(String totalCost) {
-        TotalCost = totalCost;
+        this.totalCost = totalCost;
     }
 
     public String getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(String time) {
-        Time = time;
+        this.time = time;
     }
 
-    public String getDate() {
-        return Date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDate(String date) {
-        Date = date;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public List<String> getReservedHours() {
-        return ReservedHours;
+        return reservedHours;
     }
 
     public void setReservedHours(List<String> reservedHours) {
-        ReservedHours = reservedHours;
+        this.reservedHours = reservedHours;
     }
 
     public Client getClient() {

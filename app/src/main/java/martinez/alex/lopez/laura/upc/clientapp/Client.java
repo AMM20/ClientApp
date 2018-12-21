@@ -6,44 +6,44 @@ public class Client implements Serializable {
 
 
 
-    private String Name, LastName, Email, Notes;
+    private String name, lastName, email, notes;
 
-    private Integer Phone;
+    private Integer phone;
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setNotes(String notes) {
-        Notes = notes;
+        this.notes = notes;
     }
 
     public void setPhone(Integer phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public Integer getPhone() {
-        return Phone;
+        return phone;
     }
 
 }

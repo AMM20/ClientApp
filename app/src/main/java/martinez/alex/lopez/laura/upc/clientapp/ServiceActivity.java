@@ -18,19 +18,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ServiceActivity extends AppCompatActivity {
 
     private Reserva reserva;
 
-    private RadioGroup ProjectUseView, ServiceTypeView;
+    private RadioGroup projectUseView, serviceTypeView;
     private RadioButton btn_academic, btn_personal, btn_autoservice, btn_PROservice;
-    private TextView ChosenMaterial, ChosenTime, ChosenDate;
-    private EditText EditThickness;
-    private ImageView LogoView;
+    private TextView chosenMaterial, chosenTime, chosenDate;
+    private EditText editThickness;
+    private ImageView logoView;
 
-    private int Year, Month, Day;
+    private int year, month, day;
 
     private boolean fieldsChecked = false;
 
@@ -43,27 +46,27 @@ public class ServiceActivity extends AppCompatActivity {
 
         reserva = new Reserva();
 
-        ProjectUseView = findViewById(R.id.ProjectUseView);
-        ServiceTypeView = findViewById(R.id.ServiceTypeView);
+        projectUseView = findViewById(R.id.ProjectUseView);
+        serviceTypeView = findViewById(R.id.ServiceTypeView);
 
         btn_academic = findViewById(R.id.btn_academic);
         btn_personal = findViewById(R.id.btn_personal);
         btn_autoservice = findViewById(R.id.btn_autoservice);
         btn_PROservice = findViewById(R.id.btn_PROservice);
 
-        ChosenMaterial = findViewById(R.id.ChosenMaterial);
-        ChosenTime = findViewById(R.id.ChosenTime);
-        ChosenDate = findViewById(R.id.ChosenDate);
+        chosenMaterial = findViewById(R.id.ChosenMaterial);
+        chosenTime = findViewById(R.id.ChosenTime);
+        chosenDate = findViewById(R.id.ChosenDate);
 
-        EditThickness = findViewById(R.id.EditThickness);
-        EditThickness.setFilters(new InputFilter[]{new InputFilterMinMax(0,10)});
+        editThickness = findViewById(R.id.EditThickness);
+        editThickness.setFilters(new InputFilter[]{new InputFilterMinMax(0,10)});
 
-        LogoView = findViewById(R.id.LogoView);
+        logoView = findViewById(R.id.LogoView);
 
         Glide.with(this)
                 .load("file:///android_asset/FABLABlogo.png")
                 .apply(RequestOptions.fitCenterTransform())
-                .into(LogoView);
+                .into(logoView);
 
     }
 
@@ -96,31 +99,30 @@ public class ServiceActivity extends AppCompatActivity {
 
         fieldsChecked = true;
 
-        int PUchecked = ProjectUseView.getCheckedRadioButtonId();
+        int pUchecked = projectUseView.getCheckedRadioButtonId();
 
-        if (PUchecked == R.id.btn_academic){
+        if (pUchecked == R.id.btn_academic){
             reserva.setProjectUse(getString(R.string.Academic));
-        } else if (PUchecked == R.id.btn_personal){
+        } else if (pUchecked == R.id.btn_personal){
             reserva.setProjectUse(getString(R.string.Personal));
         } else fieldsChecked = false;
 
-        int STchecked = ServiceTypeView.getCheckedRadioButtonId();
+        int sTchecked = serviceTypeView.getCheckedRadioButtonId();
 
-        if (STchecked == R.id.btn_autoservice) {
+        if (sTchecked == R.id.btn_autoservice) {
             reserva.setServiceType(getString(R.string.Autoservice));
-        } else if (STchecked == R.id.btn_PROservice) {
+        } else if (sTchecked == R.id.btn_PROservice) {
             reserva.setServiceType(getString(R.string.PROService));
         } else fieldsChecked = false;
 
-        reserva.setMaterial(String.valueOf(ChosenMaterial.getText()));
+        reserva.setMaterial(String.valueOf(chosenMaterial.getText()));
         if(reserva.getMaterial().equals("")) fieldsChecked = false;
-        reserva.setTime(String.valueOf(ChosenTime.getText()));
+        reserva.setTime(String.valueOf(chosenTime.getText()));
         if(reserva.getTime().equals("")) fieldsChecked = false;
-        reserva.setThickness(String.valueOf(EditThickness.getText()));
+        reserva.setThickness(String.valueOf(editThickness.getText()));
         if(reserva.getThickness().equals("")) fieldsChecked = false;
 
-        reserva.setDate(String.valueOf(ChosenDate.getText()));
-        if(reserva.getDate().equals("dd/mm/yyyy")) fieldsChecked = false;
+        if(chosenDate.getText().equals("dd/mm/yyyy")) fieldsChecked = false;
 
     }
 
@@ -135,7 +137,7 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 reserva.setMaterial(materials[which]);
-                ChosenMaterial.setText(materials[which]);
+                chosenMaterial.setText(materials[which]);
             }
         });
 
@@ -155,7 +157,7 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 reserva.setMaterial(time[which]);
-                ChosenTime.setText(time[which]);
+                chosenTime.setText(time[which]);
             }
         });
 
@@ -167,16 +169,23 @@ public class ServiceActivity extends AppCompatActivity {
     public void onClickChooseDate(View view) {
 
         final Calendar calendar = Calendar.getInstance();
-        Year = calendar.get(Calendar.YEAR);
-        Month = calendar.get(Calendar.MONTH);
-        Day = calendar.get(Calendar.DAY_OF_MONTH);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                ChosenDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                String sdate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                chosenDate.setText(sdate);
+                try {
+                    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(sdate);
+                    reserva.setDate(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
-        }, Year, Month, Day);
+        }, year, month, day);
         datePickerDialog.show();
 
     }
