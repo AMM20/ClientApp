@@ -119,7 +119,7 @@ public class ServiceActivity extends AppCompatActivity {
         if(reserva.getMaterial().equals("")) fieldsChecked = false;
         reserva.setTime(String.valueOf(chosenTime.getText()));
         if(reserva.getTime().equals("")) fieldsChecked = false;
-        reserva.setThickness(String.valueOf(editThickness.getText()));
+        reserva.setThickness(String.valueOf(editThickness.getText())+" mm");
         if(reserva.getThickness().equals("")) fieldsChecked = false;
 
         if(chosenDate.getText().equals("dd/mm/yyyy")) fieldsChecked = false;

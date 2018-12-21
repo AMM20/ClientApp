@@ -19,7 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ChooseHoursActivity extends AppCompatActivity {
@@ -42,7 +41,8 @@ public class ChooseHoursActivity extends AppCompatActivity {
     private Reserva reserva;
     private int time;
 
-    private int checkedturns=0;
+    private int lastPos = -1, lastTurn = -1;
+
     private List<Turn> reservedHours;
 
     //TODO: Poner un ejemplo de reserva en la base de datos para poder ver las horas ocupadas y no permitir seleccionarlas.
@@ -87,63 +87,84 @@ public class ChooseHoursActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: Modificar la manera de introducir las horas a reservar. En vez de seleccionarlas individualmente, hacerlo por paquetes, segun el tiempo que se ha reservado.
+    //TODO: Implementar el algorismo para comprobar si una hora está reservada o no para que no se pueda marcar por el usuario.
+
+    private int calcCheckedTurns() {
+        int count = 0;
+        for (int pos = 0; pos < reservedHours.size(); pos++) {
+            Turn turn = reservedHours.get(pos);
+            for (int i = 0; i < turn.checked.length; i++) {
+                if (turn.checked[i]) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    class Quarter {
+        private int pos, i;
+        Quarter(int pos, int i) {
+            this.pos = pos;
+            this.i = i;
+        }
+    }
+
+    private void clearQuarters() {
+        for (int pos = 0; pos < reservedHours.size(); pos++) {
+            Turn turn = reservedHours.get(pos);
+            for (int i = 0; i < turn.checked.length; i++) {
+                turn.checked[i] = false;
+            }
+        }
+    }
+
+    private List<Quarter> quartersFrom(int pos, int index) {
+        List<Quarter> result = new ArrayList<>();
+        for (int i = 0; i < time/15; i++) {
+            result.add(new Quarter(pos, index));
+            index++;
+            if (index >= 4) {
+                index = 0;
+                pos++;
+                if (pos >= reservedHours.size()){
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
 
     public void onClickChooseTurn(int pos, int turn) {
-
-        /*boolean prevValue = reservedHours.get(pos).checked[turn];
-
-        if (!prevValue && (checkedturns>=this.time/15)) {
-            return;
-        }
-
-        else {
-            reservedHours.get(pos).checked[turn] = !prevValue;
-            if (reservedHours.get(pos).checked[turn]){
-                checkedturns++;
-            }
-            else {
-                checkedturns--;
-            }
-        }*/
-
         boolean prevValue = reservedHours.get(pos).checked[turn];
         boolean isReserved = reservedHours.get(pos).reserved[turn];
 
-        if ((!prevValue && (checkedturns>=this.time/15)) || isReserved) {
+        // He clicado un quarter reservado
+        if (isReserved) {
             return;
         }
-        else if (!prevValue && (checkedturns<this.time/15) && !isReserved) {
 
-            for (int i = 0; i < this.time/15; i++) {
+        clearQuarters();
+        // El clicado el mismo que antes
+        if (pos == lastPos && turn == lastTurn && prevValue) {
+            adapter.notifyDataSetChanged();
+            return;
+        }
 
-                if (reservedHours.get(pos + (turn+i)/4 ).reserved[(turn + i)%4]) {
-                    return;
-                }
-                else {
-                  
-                    reservedHours.get(pos + (turn+i)/4).checked[(turn+i)%4] = !prevValue;
-                }
-            }
-                checkedturns = this.time/15;
-            }
-        /*else if (prevValue) {
-            if (!reservedHours.get(pos - 1).checked[turn]){
-                for (int i = 0; i < this.time/15; i++) {
-                    reservedHours.get(pos + i).checked[turn] = !prevValue;
-                }
-                checkedturns = 0;
-            }
-            else {
+        lastPos = pos;
+        lastTurn = turn;
 
-            }
-        }*/
+        for (Quarter q : quartersFrom(pos, turn)) {
+            reservedHours.get(q.pos).checked[q.i] = true;
+        }
         adapter.notifyDataSetChanged();
     }
 
-    public void onClickNext(View view) {
 
-        if (checkedturns<this.time/15){
+
+    public void onClickNext(View view) {
+        int numChecked = calcCheckedTurns();
+        if (numChecked<this.time/15){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.missing_turns_message);
 
@@ -187,15 +208,12 @@ public class ChooseHoursActivity extends AppCompatActivity {
                     if (j==3){
                         HourList.add(t.hour + "45");
                     }
-
                 }
             }
         }
 
         reserva.setReservedHours(HourList);
-
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView t00Button;
@@ -288,7 +306,6 @@ public class ChooseHoursActivity extends AppCompatActivity {
             if (!turn.checked[3]) {
                 holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
             }
-
         }
 
         @Override
