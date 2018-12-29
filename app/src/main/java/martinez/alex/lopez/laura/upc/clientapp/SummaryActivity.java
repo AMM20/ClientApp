@@ -86,6 +86,7 @@ public class SummaryActivity extends AppCompatActivity {
             endHour++;
             turnEnd = String.valueOf(endHour) + ":00";
         } else {
+            endMin = endMin +15;
             turnEnd = String.valueOf(endHour) + ":" + String.valueOf(endMin);
         }
 

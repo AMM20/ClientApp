@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -60,6 +61,7 @@ public class ChooseHoursActivity extends AppCompatActivity {
         for (int i = 0; i < array.length; i++) {
             reservedHours.add(new Turn(array[i]));
         }
+        reservedHours.get(4).reserved[0]=true;
 
         Intent intent = getIntent();
         reserva = (Reserva) intent.getSerializableExtra("reserva");
@@ -151,15 +153,22 @@ public class ChooseHoursActivity extends AppCompatActivity {
             return;
         }
 
+        for (Quarter q : quartersFrom(pos, turn)) {
+            if (reservedHours.get(q.pos).reserved[q.i]){
+                clearQuarters();
+                Toast.makeText(this, R.string.reserved_turns_message, Toast.LENGTH_LONG).show();
+                return;
+            } else {
+                reservedHours.get(q.pos).checked[q.i] = true;
+                adapter.notifyDataSetChanged();
+            }
+        }
+
         lastPos = pos;
         lastTurn = turn;
 
-        for (Quarter q : quartersFrom(pos, turn)) {
-            reservedHours.get(q.pos).checked[q.i] = true;
-        }
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
     }
-
 
 
     public void onClickNext(View view) {
@@ -279,33 +288,46 @@ public class ChooseHoursActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Turn turn = reservedHours.get(position);
             holder.hourLabel.setText(turn.hour);
-            if (turn.checked[0]) {
-                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
-            }
-            if (!turn.checked[0]) {
-                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
-            }
-
-            if (turn.checked[1]) {
-                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
-            }
-            if (!turn.checked[1]) {
-                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
+            if (turn.reserved[0]) {
+                holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_reserved));
+            } else {
+                if (turn.checked[0]) {
+                    holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
+                } else {
+                    holder.t00Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
+                }
             }
 
-            if (turn.checked[2]) {
-                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
-            }
-            if (!turn.checked[2]) {
-                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
+            if (turn.reserved[1]) {
+                holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_reserved));
+            } else {
+                if (turn.checked[1]) {
+                    holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
+                } else {
+                    holder.t15Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
+                }
             }
 
-            if (turn.checked[3]) {
-                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
+            if (turn.reserved[2]) {
+                holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_reserved));
+            } else {
+                if (turn.checked[2]) {
+                    holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
+                } else {
+                    holder.t30Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
+                }
             }
-            if (!turn.checked[3]) {
-                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
+
+            if (turn.reserved[3]) {
+                holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_reserved));
+            } else {
+                if (turn.checked[3]) {
+                    holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_marked));
+                } else {
+                    holder.t45Button.setBackground(getResources().getDrawable(R.drawable.rounded_back_unmarked));
+                }
             }
+
         }
 
         @Override
