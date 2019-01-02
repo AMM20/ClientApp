@@ -35,6 +35,8 @@ public class ServiceActivity extends AppCompatActivity {
 
     private int year, month, day;
 
+    private final Calendar calendar = Calendar.getInstance();
+
     private boolean fieldsChecked = false;
 
 
@@ -58,8 +60,28 @@ public class ServiceActivity extends AppCompatActivity {
         chosenTime = findViewById(R.id.ChosenTime);
         chosenDate = findViewById(R.id.ChosenDate);
 
+
         editThickness = findViewById(R.id.EditThickness);
         editThickness.setFilters(new InputFilter[]{new InputFilterMinMax(0,10)});
+
+        // Es predefineixen els valors d'alguns dels camps que cal omplir.
+        chosenMaterial.setText("DM");
+        chosenTime.setText("30 min");
+        editThickness.setText("3");
+
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String sactualdate = Integer.toString(day) + "/" + Integer.toString(month + 1) + "/" + Integer.toString(year);
+        chosenDate.setText(sactualdate);
+
+        try {
+            Date actualdate = new SimpleDateFormat("dd/MM/yyyy").parse(sactualdate);
+            reserva.setDate(actualdate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         logoView = findViewById(R.id.LogoView);
 
@@ -69,7 +91,6 @@ public class ServiceActivity extends AppCompatActivity {
                 .into(logoView);
 
     }
-
 
     public void onClickChooseHour(View view) {
 
@@ -116,14 +137,8 @@ public class ServiceActivity extends AppCompatActivity {
         } else fieldsChecked = false;
 
         reserva.setMaterial(String.valueOf(chosenMaterial.getText()));
-        if(reserva.getMaterial().equals("")) fieldsChecked = false;
         reserva.setTime(String.valueOf(chosenTime.getText()));
-        if(reserva.getTime().equals("")) fieldsChecked = false;
         reserva.setThickness(String.valueOf(editThickness.getText())+" mm");
-        if(reserva.getThickness().equals("")) fieldsChecked = false;
-
-        if(chosenDate.getText().equals("dd/mm/yyyy")) fieldsChecked = false;
-
     }
 
     public void onClickChooseMaterial(View view) {
@@ -167,11 +182,6 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     public void onClickChooseDate(View view) {
-
-        final Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override

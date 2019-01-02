@@ -8,18 +8,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChooseHoursActivity extends AppCompatActivity {
@@ -37,6 +44,7 @@ public class ChooseHoursActivity extends AppCompatActivity {
     }
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference turnsRef;
 
     private Adapter adapter;
     private Reserva reserva;
@@ -45,29 +53,35 @@ public class ChooseHoursActivity extends AppCompatActivity {
     private int lastPos = -1, lastTurn = -1;
 
     private List<Turn> reservedHours;
-
-    //TODO: Poner un ejemplo de reserva en la base de datos para poder ver las horas ocupadas y no permitir seleccionarlas.
-
+    private List<String> reservedHoursList;
+    private List<String> dbReservedHours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_hours);
 
+        Intent intent = getIntent();
+        reserva = (Reserva) intent.getSerializableExtra("reserva");
+
         reservedHours = new ArrayList<>();
+        dbReservedHours = new ArrayList<>();
 
         String[] array = getResources().getStringArray(R.array.hours);
 
         for (int i = 0; i < array.length; i++) {
             reservedHours.add(new Turn(array[i]));
         }
-        reservedHours.get(4).reserved[0]=true;
 
-        Intent intent = getIntent();
-        reserva = (Reserva) intent.getSerializableExtra("reserva");
+        //reservedHours.get(4).reserved[0]=true;
 
         String[] ReservationTime = reserva.getTime().split(" ");
         this.time = Integer.parseInt(ReservationTime[0]);
+
+        Date date = reserva.getDate();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String[] sdate = dateFormat.format(date).split("/");
+        String docID = sdate[2] + sdate[1] + sdate[0];
 
         RecyclerView hourListView = findViewById(R.id.HourListView);
 
@@ -75,21 +89,66 @@ public class ChooseHoursActivity extends AppCompatActivity {
         adapter = new Adapter();
         hourListView.setAdapter(adapter);
 
-        // Se añade un Listener que nos avisa cada vez que la colección de Firestore (Firebase) sufre algun cambio.
+        //TODO: Conectar la base de datos de Firestore con la App y ver las horas ocupadas.
 
-        db.collection("reservas").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        // Se añade un Listener con el que obtenemos las horas reservadas en todos los turnos de una fecha de la colección de reservas de la base de datos.
+
+        turnsRef= db.collection("reservas").document(docID).collection("turnos");
+
+        turnsRef.get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documentSnapshots) {
+                        OmpleTornsOcupats(documentSnapshots);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("dbError",e.toString());
+                    }
+                });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Se añade un Listener que nos avisa cada vez que la colección de Firestore (Firebase) sufre algun cambio.
+        turnsRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-                for (DocumentSnapshot doc : documentSnapshots) {
-                    //Date inicio = doc.getDate("inicio");
-                    //Long minutos = doc.getLong("minutos");
-
+                if (e != null) {
+                    Log.d("dbError",e.toString());
+                    return;
                 }
+                    OmpleTornsOcupats(documentSnapshots);
+
             }
         });
     }
 
-    //TODO: Implementar el algorismo para comprobar si una hora está reservada o no para que no se pueda marcar por el usuario.
+    private void OmpleTornsOcupats(QuerySnapshot documentSnapshots) {
+        dbReservedHours.clear();
+        for (DocumentSnapshot doc : documentSnapshots) {
+            reservedHoursList = (List<String>) doc.get("reservedHours");
+            dbReservedHours.addAll(reservedHoursList);
+        }
+        for (int j = 0; j < dbReservedHours.size(); j++){
+            String[] dbHour = dbReservedHours.get(j).split(":");
+            int dbTurn = -1;
+
+            if (dbHour[1].equals("00")) dbTurn = 0;
+            else if (dbHour[1].equals("15")) dbTurn = 1;
+            else if (dbHour[1].equals("30")) dbTurn = 2;
+            else if (dbHour[1].equals("45")) dbTurn = 3;
+
+            for (int k = 0; k < reservedHours.size(); k++)  {
+                if ((dbHour[0]+":").equals(reservedHours.get(k).hour)) reservedHours.get(k).reserved[dbTurn] = true;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
 
     private int calcCheckedTurns() {
         int count = 0;
@@ -169,7 +228,6 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
         //adapter.notifyDataSetChanged();
     }
-
 
     public void onClickNext(View view) {
         int numChecked = calcCheckedTurns();
