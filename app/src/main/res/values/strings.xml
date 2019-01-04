@@ -25,6 +25,7 @@
     <string name="PRO_service_info_message">A FABLAB employee will do the task.</string>
     <string name="missing_turns_message">All required turns have not been selected.</string>
     <string name="reserved_turns_message">You can\'t select reserved turns</string>
+    <string name="successful_reservation_message">Your reservation has been completed</string>
 
     <!-- DetailsActivity -->
 

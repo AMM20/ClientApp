@@ -131,8 +131,8 @@ public class ChooseHoursActivity extends AppCompatActivity {
     private void OmpleTornsOcupats(QuerySnapshot documentSnapshots) {
         dbReservedHours.clear();
         for (DocumentSnapshot doc : documentSnapshots) {
-            reservedHoursList = (List<String>) doc.get("reservedHours");
-            dbReservedHours.addAll(reservedHoursList);
+                reservedHoursList = (List<String>) doc.get("reservedHours");
+                dbReservedHours.addAll(reservedHoursList);
         }
         for (int j = 0; j < dbReservedHours.size(); j++){
             String[] dbHour = dbReservedHours.get(j).split(":");

@@ -38,6 +38,10 @@ public class Client implements Serializable {
         this.notes = notes;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
     public void setPhone(Integer phone) {
         this.phone = phone;
     }
