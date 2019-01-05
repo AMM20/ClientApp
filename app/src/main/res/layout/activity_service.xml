@@ -273,6 +273,7 @@
         android:layout_width="39dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
         android:onClick="onClickChooseDate"
         app:layout_constraintBottom_toTopOf="@+id/ChooseHourButton"
         app:layout_constraintStart_toEndOf="@+id/ChosenDate"

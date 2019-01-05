@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class Client implements Serializable {
 
-
-
     private String name, lastName, email, notes;
 
     private Integer phone;

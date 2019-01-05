@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class SummaryActivity extends AppCompatActivity {
     private int endMin;
 
     private String docID;
+    private String reservationID;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -111,6 +113,10 @@ public class SummaryActivity extends AppCompatActivity {
 
         clientReservationHour.setText(reservedTurn);
 
+        // S'agafa l'hora d'inici de la reserva com a ID del document que correspon a aquesta reserva.
+        String[] IDaux = turnStart.split(":");
+        reservationID = IDaux[0]+IDaux[1];
+
     }
 
     public void onClickUploadReservation(View view) {
@@ -130,11 +136,11 @@ public class SummaryActivity extends AppCompatActivity {
         dbreserva.put("time", reserva.getTime());
         dbreserva.put("reservedHours", reserva.getReservedHours());
 
-        db.collection("reservas").document(docID).collection("turnos")
-                .add(dbreserva)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("reservas").document(docID).collection("turnos").document(reservationID)
+                .set(dbreserva)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void aVoid) {
                         Log.d("db", "DocumentSnapshot successfully written!");
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(SummaryActivity.this);
