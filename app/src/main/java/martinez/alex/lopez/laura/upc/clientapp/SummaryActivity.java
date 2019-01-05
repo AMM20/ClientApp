@@ -135,6 +135,7 @@ public class SummaryActivity extends AppCompatActivity {
         dbreserva.put("totalCost", reserva.getTotalCost());
         dbreserva.put("time", reserva.getTime());
         dbreserva.put("reservedHours", reserva.getReservedHours());
+        dbreserva.put("reservationID",reservationID);
 
         db.collection("reservas").document(docID).collection("turnos").document(reservationID)
                 .set(dbreserva)
