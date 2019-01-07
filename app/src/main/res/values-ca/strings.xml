@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tall Làser FABLAB</string>
+    <string name="ProjectUse">Ús del Projecte:</string>
+    <string name="ServiceType">Tipus de Servei:</string>
+    <string name="Academic">Acadèmic</string>
+    <string name="Personal">Personal</string>
+    <string name="Autoservice">Autoservei</string>
+    <string name="PROService">Servei PRO</string>
+    <string name="Material">Material:</string>
+    <string name="Thickness">Grux:</string>
+    <string name="Time">Temps:</string>
+    <string name="Date">Data:</string>
+    <string name="ChooseMaterial">Escull un Material</string>
+    <string name="ChooseTime">Escull el temps a reservar</string>
+    <string name="ChooseTurn">Escull el teu torn</string>
+    <string name="BTNChooseReservationHour">Escull l\'hora de reserva</string>
+    <string name="BTNNext">Següent</string>
+    <string name="OK">D\'acord</string>
+    <string name="missing_statements_message">Falten camps per omplir.</string>
+    <string name="PRO_service_info_message">Un empleat de FABLAB farà la tasca.</string>
+    <string name="missing_turns_message">Falten torns per seleccionar</string>
+    <string name="reserved_turns_message">No es poden seleccionar torns ja reservats.</string>
+    <string name="successful_reservation_message">La teva reserva s\'ha completat.</string>
+    <string name="invalid_email_message">Introdueix un correu electrònic vàlid.</string>
+    <string name="Name">Nom*</string>
+    <string name="LastName">Cognoms*</string>
+    <string name="Email">Correu electrònic*</string>
+    <string name="Phone">Telèfon*</string>
+    <string name="Notes">Observacions</string>
+    <string name="BTNConfirm">Confirmar</string>
+    <string name="RequiredFields">* Camps requerits</string>
+    <string name="ReservationDate">Data Reserva:</string>
+    <string name="ReservationHour">Hora Reserva:</string>
+    <string name="ClientName">Nom:</string>
+    <string name="ClientLastName">Cognoms:</string>
+    <string name="ServiceTypeSummary">Tipus de Servei:</string>
+    <string name="ProjectUseSummary">Ús del Projecte:</string>
+    <string name="TotalCost">PREU TOTAL:</string>
+    <string name="BTNConfirmReservation">Confirmar Reserva:</string>
+    <string name="TotalCostAcademic">GRATUÏT</string>
+
+
+    <array name="materials">
+        <item>DM</item>
+        <item>Cartró</item>
+        <item>Cartulina</item>
+        <item>Contraxpat</item>
+        <item>Metacrilat</item>
+        <item>Altres</item>
+    </array>
+
+
+</resources>

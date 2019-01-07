@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Corte Láser FABLAB</string>
+    <string name="ProjectUse">Uso del Proyecto:</string>
+    <string name="ServiceType">Tipo de Servicio:</string>
+    <string name="Academic">Académico</string>
+    <string name="Personal">Personal</string>
+    <string name="Autoservice">Autoservicio</string>
+    <string name="PROService">Servicio PRO</string>
+    <string name="Material">Material:</string>
+    <string name="Thickness">Grosor:</string>
+    <string name="Time">Tiempo:</string>
+    <string name="Date">Fecha:</string>
+    <string name="ChooseMaterial">Escoge un Material</string>
+    <string name="ChooseTime">Escoge el tiempo a reservar</string>
+    <string name="ChooseTurn">Escoge tu turno</string>
+    <string name="BTNChooseReservationHour">Escoge la hora de reserva</string>
+    <string name="BTNNext">Siguiente</string>
+    <string name="OK">De acuerdo</string>
+    <string name="missing_statements_message">Faltan campos por rellenar.</string>
+    <string name="PRO_service_info_message">Un empleado de FABLAB harà la tarea.</string>
+    <string name="missing_turns_message">Faltan turnos por seleccionar.</string>
+    <string name="reserved_turns_message">No se pueden seleccionar turnos ya reservados.</string>
+    <string name="successful_reservation_message">Tu reserva se ha completado.</string>
+    <string name="invalid_email_message">Introduce un correo electrónico válido.</string>
+    <string name="Name">Nombre*</string>
+    <string name="LastName">Apellidos*</string>
+    <string name="Email">Correo electrónico*</string>
+    <string name="Phone">Teléfono*</string>
+    <string name="Notes">Observaciones</string>
+    <string name="BTNConfirm">Confirmar</string>
+    <string name="RequiredFields">* Campos requeridos</string>
+    <string name="ReservationDate">Fecha Reserva:</string>
+    <string name="ReservationHour">Hora Reserva:</string>
+    <string name="ClientName">Nombre:</string>
+    <string name="ClientLastName">Apellidos:</string>
+    <string name="ServiceTypeSummary">Tipo de Servicio:</string>
+    <string name="ProjectUseSummary">Uso del Proyecto:</string>
+    <string name="TotalCost">PRECIO TOTAL:</string>
+    <string name="BTNConfirmReservation">Confirmar Reserva:</string>
+    <string name="TotalCostAcademic">GRATUITO</string>
+
+    <array name="materials">
+        <item>DM</item>
+        <item>Cartón</item>
+        <item>Cartulina</item>
+        <item>Contrachapado</item>
+        <item>Metacrilato</item>
+        <item>Otros</item>
+    </array>
+
+</resources>

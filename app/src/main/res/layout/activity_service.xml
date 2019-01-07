@@ -13,18 +13,17 @@
         android:layout_marginLeft="16dp"
         android:background="@drawable/rounded_back_unmarked"
         android:gravity="center"
-        android:paddingBottom="4dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
         android:text="@string/ProjectUse"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ProjectUseView"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ProjectUseView"
-        tools:text="Ús del projecte" />
+        app:layout_constraintTop_toTopOf="@+id/ProjectUseView" />
 
     <ImageView
         android:id="@+id/LogoView"
@@ -58,16 +57,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/Academic"
-            android:textSize="14sp"
-            tools:text="Acadèmic" />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/btn_personal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Personal"
-            tools:text="Personal" />
+            android:text="@string/Personal" />
 
     </RadioGroup>
 
@@ -78,18 +75,17 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/rounded_back_unmarked"
         android:gravity="center"
-        android:paddingBottom="4dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
         android:text="@string/ServiceType"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ServiceTypeView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ServiceTypeView"
-        tools:text="Tipus de servei" />
+        app:layout_constraintTop_toTopOf="@+id/ServiceTypeView" />
 
     <RadioGroup
         android:id="@+id/ServiceTypeView"
@@ -105,16 +101,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Autoservice"
-            tools:text="Autoservei" />
+            android:text="@string/Autoservice" />
 
         <RadioButton
             android:id="@+id/btn_PROservice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/PROService"
-            tools:text="Servei PRO" />
+            android:text="@string/PROService" />
 
     </RadioGroup>
 
@@ -125,17 +119,16 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/rounded_back_unmarked"
         android:gravity="center"
-        android:paddingBottom="4dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
         android:text="@string/Material"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/ChosenMaterial"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Material" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/ChosenMaterial"
@@ -175,17 +168,16 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/rounded_back_unmarked"
         android:gravity="center"
-        android:paddingBottom="4dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
         android:text="@string/Thickness"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/EditThickness"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Gruix" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/ThicknessLimitLabel"
@@ -205,17 +197,16 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/rounded_back_unmarked"
         android:gravity="center"
-        android:paddingBottom="4dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
         android:text="@string/Time"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/ChosenTime"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Temps" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/ChosenTime"
@@ -254,18 +245,17 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/rounded_back_unmarked"
         android:gravity="center"
-        android:paddingBottom="4dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
         android:text="@string/Date"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/CalendarButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CalendarButton"
-        tools:text="Data" />
+        app:layout_constraintTop_toTopOf="@+id/CalendarButton" />
 
     <ImageButton
         android:id="@+id/CalendarButton"
@@ -284,8 +274,8 @@
         android:id="@+id/ChooseHourButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:onClick="onClickChooseHour"
         android:text="@string/BTNChooseReservationHour"
         android:textStyle="bold"
@@ -293,8 +283,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CalendarButton"
-        tools:text="Escull hora de reserva" />
+        app:layout_constraintTop_toBottomOf="@+id/CalendarButton" />
 
     <TextView
         android:id="@+id/ChosenDate"

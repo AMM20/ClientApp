@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">ClientApp</string>
+    <string name="app_name">Laser Cut FABLAB</string>
 
     <!-- ServiceActivity-->
     <string name="ProjectUse">Project Use:</string>
@@ -25,8 +25,8 @@
     <string name="OK">OK</string>
     <string name="missing_statements_message">Some required fields are missing.</string>
     <string name="PRO_service_info_message">A FABLAB employee will do the task.</string>
-    <string name="missing_turns_message">All required turns have not been selected.</string>
-    <string name="reserved_turns_message">You can\'t select reserved turns.</string>
+    <string name="missing_turns_message">Missing turns to select.</string>
+    <string name="reserved_turns_message">Reserved turns can\'t be selected.</string>
     <string name="successful_reservation_message">Your reservation has been completed.</string>
     <string name="invalid_email_message">Enter a valid email.</string>
 
@@ -48,7 +48,7 @@
     <string name="ClientLastName">Last Name:</string>
     <string name="ServiceTypeSummary">Service Type:</string>
     <string name="ProjectUseSummary">Project Use:</string>
-    <string name="TotalCost">Total Cost:</string>
+    <string name="TotalCost">TOTAL COST:</string>
     <string name="BTNConfirmReservation">Confirm Reservation</string>
     <string name="TotalCostAcademic">FREE</string>
 

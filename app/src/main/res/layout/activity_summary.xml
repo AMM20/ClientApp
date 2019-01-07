@@ -19,8 +19,7 @@
         app:layout_constraintBottom_toTopOf="@+id/LastNameLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread"
-        tools:text="Nom" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
         android:id="@+id/ClientName"
@@ -47,8 +46,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ReservationDateLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NameLabel"
-        tools:text="Cognoms" />
+        app:layout_constraintTop_toBottomOf="@+id/NameLabel" />
 
     <TextView
         android:id="@+id/ClientLastName"
@@ -76,8 +74,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ReservationHourLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LastNameLabel"
-        tools:text="Data Reserva" />
+        app:layout_constraintTop_toBottomOf="@+id/LastNameLabel" />
 
     <TextView
         android:id="@+id/ClientReservationDate"
@@ -105,8 +102,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ServiceTypeLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ReservationDateLabel"
-        tools:text="Hora Reserva" />
+        app:layout_constraintTop_toBottomOf="@+id/ReservationDateLabel" />
 
     <TextView
         android:id="@+id/ClientReservationHour"
@@ -132,8 +128,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ProjectUseLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ReservationHourLabel"
-        tools:text="Tipus de servei" />
+        app:layout_constraintTop_toBottomOf="@+id/ReservationHourLabel" />
 
     <TextView
         android:id="@+id/ClientServiceType"
@@ -163,17 +158,16 @@
         android:id="@+id/ProjectUseLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/ProjectUseSummary"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/rule"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ServiceTypeLabel"
-        tools:text="Us del projecte" />
+        app:layout_constraintTop_toBottomOf="@+id/ServiceTypeLabel" />
 
     <ImageView
         android:id="@+id/rule"
@@ -193,21 +187,20 @@
         android:id="@+id/TotalPriceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_back"
-        android:paddingBottom="10dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
         android:text="@string/TotalCost"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ConfirmButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rule"
-        tools:text="PREU TOTAL:" />
+        app:layout_constraintTop_toBottomOf="@+id/rule" />
 
     <TextView
         android:id="@+id/ClientTotalCost"
@@ -226,15 +219,14 @@
         android:id="@+id/ConfirmButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:text="@string/BTNConfirmReservation"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:onClick="onClickUploadReservation"
+        android:text="@string/BTNConfirmReservation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TotalPriceLabel"
-        tools:text="Confirmar Reserva" />
+        app:layout_constraintTop_toBottomOf="@+id/TotalPriceLabel" />
 </android.support.constraint.ConstraintLayout>
