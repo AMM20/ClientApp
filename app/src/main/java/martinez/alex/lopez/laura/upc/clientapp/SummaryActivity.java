@@ -66,7 +66,7 @@ public class SummaryActivity extends AppCompatActivity {
 
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String chosenDate = dateFormat.format(reserva.getDate());
-        String[] sdate = dateFormat.format(reserva.getDate()).split("/");
+        String[] sdate = chosenDate.split("/");
         docID = sdate[2] + sdate[1] + sdate[0];
 
         clientReservationDate.setText(chosenDate);
@@ -121,7 +121,6 @@ public class SummaryActivity extends AppCompatActivity {
 
     public void onClickUploadReservation(View view) {
 
-        // TODO: Implementar el métode que puja les dades de la reserva a Firestore.
         Map<String, Object> dbreserva = new HashMap<>();
         dbreserva.put("name", client.getName());
         dbreserva.put("lastName", client.getLastName());

@@ -20,12 +20,15 @@
     <string name="BTNChooseReservationHour">Choose Reservation Hour</string>
     <string name="BTNNext">Next</string>
 
+    <!-- AlertDialog messages -->
+
     <string name="OK">OK</string>
     <string name="missing_statements_message">Some required fields are missing.</string>
     <string name="PRO_service_info_message">A FABLAB employee will do the task.</string>
     <string name="missing_turns_message">All required turns have not been selected.</string>
-    <string name="reserved_turns_message">You can\'t select reserved turns</string>
-    <string name="successful_reservation_message">Your reservation has been completed</string>
+    <string name="reserved_turns_message">You can\'t select reserved turns.</string>
+    <string name="successful_reservation_message">Your reservation has been completed.</string>
+    <string name="invalid_email_message">Enter a valid email.</string>
 
     <!-- DetailsActivity -->
 
@@ -47,9 +50,9 @@
     <string name="ProjectUseSummary">Project Use:</string>
     <string name="TotalCost">Total Cost:</string>
     <string name="BTNConfirmReservation">Confirm Reservation</string>
-
     <string name="TotalCostAcademic">FREE</string>
 
+    <!-- Arrays -->
 
     <array name="materials">
         <item>DM</item>
