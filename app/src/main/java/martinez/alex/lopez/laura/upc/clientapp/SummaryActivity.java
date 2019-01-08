@@ -23,9 +23,7 @@ import java.util.Map;
 
 public class SummaryActivity extends AppCompatActivity {
 
-    private Reserva reserva;
-    private Client client;
-
+    // Declaració de les variables lligades al layout de l'activitat.
     private TextView clientName;
     private TextView clientLastName;
     private TextView clientReservationDate;
@@ -34,13 +32,14 @@ public class SummaryActivity extends AppCompatActivity {
     private TextView clientProjectUse;
     private TextView clientTotalCost;
 
+    // Declaració de les variables lligades a la nova reserva.
+    private Reserva reserva;
+    private Client client;
     private int time;
-    private int endHour;
-    private int endMin;
-
     private String docID;
     private String reservationID;
 
+    // Declaració d'una instància de FirebaseFirestore.
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -49,10 +48,12 @@ public class SummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
+        // Es recuperen les dades que s'han transferit des de l'activitat DetailsActivity a partir de l'intent.
         Intent intent = getIntent();
         reserva = (Reserva) intent.getSerializableExtra("reserva");
         client = (Client) intent.getSerializableExtra("client");
 
+        // S'obtenen les referències als objectes del layout.
         clientName = findViewById(R.id.ClientName);
         clientLastName = findViewById(R.id.ClientLastName);
         clientReservationDate = findViewById(R.id.ClientReservationDate);
@@ -61,20 +62,26 @@ public class SummaryActivity extends AppCompatActivity {
         clientProjectUse = findViewById(R.id.ClientProjectUse);
         clientTotalCost = findViewById(R.id.ClientTotalCost);
 
+        // Es crida al métode OmpleDetallsReserva()
+        OmpleDetallsReserva();
+
+    }
+    // El métode OmpleDetallsReserva() recupera les dades de la reserva actual i les mostra en els camps corresponents del layout de l'activitat.
+    private void OmpleDetallsReserva() {
         clientName.setText(client.getName());
         clientLastName.setText(client.getLastName());
 
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String chosenDate = dateFormat.format(reserva.getDate());
         String[] sdate = chosenDate.split("/");
-        docID = sdate[2] + sdate[1] + sdate[0];
+        docID = sdate[2] + sdate[1] + sdate[0]; // ID del document que conté totes les reserves d'una data determinada, en format YYYYMMDD, per tal de facilitar el seu filtratge i ordenació a la base de dades.
 
         clientReservationDate.setText(chosenDate);
         clientServiceType.setText(reserva.getServiceType());
         clientProjectUse.setText(reserva.getProjectUse());
 
         String[] reservationTime = reserva.getTime().split(" ");
-        this.time = Integer.parseInt(reservationTime[0]);
+        int time = Integer.parseInt(reservationTime[0]);
 
         if (reserva.getProjectUse().equals(getString(R.string.Academic))) {
             clientTotalCost.setText(getString(R.string.TotalCostAcademic));
@@ -94,13 +101,19 @@ public class SummaryActivity extends AppCompatActivity {
 
         }
 
-        String turnStart = reserva.getReservedHours().get(0);
+        clientReservationHour.setText(getReservedTurn(reserva));
+
+    }
+
+    // Aquest mètode agafa l'Array de Stings del camp ReservedHours de l'objecte Reserva i retorna l'hora d'inici i fi en un únic String.
+    private String getReservedTurn(Reserva res) {
+
+        String turnStart = res.getReservedHours().get(0); // L'hora d'inici es correspon amb el primer element de l'Array de Strings.
         String turnEnd;
-        String[] hour = reserva.getReservedHours().get(reserva.getReservedHours().size()-1).split(":");
-        this.endHour = Integer.parseInt(hour[0]);
-
-        this.endMin = Integer.parseInt(hour[1]);
-
+        String[] hour = res.getReservedHours().get(res.getReservedHours().size()-1).split(":"); // L'últim element de l'Array es correspon amb l'hora d'inici de l'últim torn reservat.
+        int endHour = Integer.parseInt(hour[0]);
+        int endMin = Integer.parseInt(hour[1]);
+        // Per tal d'obtenir l'hora d'acabament de la reserva, nomès cal sumar-li un quart d'hora a endMin. Es distingeix entre dos casos.
         if (endMin + 15 == 60) {
             endHour++;
             turnEnd = String.valueOf(endHour) + ":00";
@@ -109,16 +122,16 @@ public class SummaryActivity extends AppCompatActivity {
             turnEnd = String.valueOf(endHour) + ":" + String.valueOf(endMin);
         }
 
-        String reservedTurn = turnStart + " - " + turnEnd;
-
-        clientReservationHour.setText(reservedTurn);
-
         // S'agafa l'hora d'inici de la reserva com a ID del document que correspon a aquesta reserva.
         String[] IDaux = turnStart.split(":");
         reservationID = IDaux[0]+IDaux[1];
 
+        // Es retorna un únic String
+        return turnStart + " - " + turnEnd;
+
     }
 
+    // Aquest métode es crida quan es clica el botó ConfirmButton. Es crea un HashMap on s'introdueixen totes les dades que es carregaran a la base de dades de Firestore.
     public void onClickUploadReservation(View view) {
 
         Map<String, Object> dbreserva = new HashMap<>();
@@ -136,19 +149,18 @@ public class SummaryActivity extends AppCompatActivity {
         dbreserva.put("reservedHours", reserva.getReservedHours());
         dbreserva.put("reservationID",reservationID);
 
-        db.collection("reservas").document(docID).collection("turnos").document(reservationID)
-                .set(dbreserva)
+        db.collection("reservas").document(docID).collection("turnos").document(reservationID) // Es crea un nou document a la base de dades que es correspon a la nova reserva.
+                .set(dbreserva) // Es carreguen les dades en els camps del document.
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("db", "DocumentSnapshot successfully written!");
+                    public void onSuccess(Void aVoid) { // Un cop carregada la reserva a la base de dades, es mostra un quadre de diàleg per a informar de que s'ha rebut correctament la reserva.                      Log.d("db", "DocumentSnapshot successfully written!");
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(SummaryActivity.this);
                         builder.setMessage(R.string.successful_reservation_message);
 
                         builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                finishAffinity();
+                                finishAffinity(); // Es tanca l'aplicació completament. Cal tornar a iniciar-la per a fer una nova reserva.
                             }
                         });
 
@@ -158,7 +170,7 @@ public class SummaryActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
+                    public void onFailure(@NonNull Exception e) {// En el cas de que falli la càrrega del document, es mostra un error al Log.
                         Log.w("dbError", "Error writing document", e);
                     }
                 });

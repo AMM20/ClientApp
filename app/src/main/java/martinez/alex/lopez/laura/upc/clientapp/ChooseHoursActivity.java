@@ -31,27 +31,35 @@ import java.util.List;
 
 public class ChooseHoursActivity extends AppCompatActivity {
 
+    // Creació d'una classe Turn, utilitzada per a dessignar els torns ja reservats i els que el client pot reservar.
     class Turn {
         String hour;
         boolean checked[];
         boolean reserved[];
 
-        public Turn(String hour) {
+        public Turn(String hour) { // Mètode constructor.
             this.hour = hour;
             this.checked = new boolean[4];
             this.reserved = new boolean[4];
         }
     }
 
+    // Declaració d'una instància de FirebaseFirestore.
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference turnsRef;
 
+    // Declaració de la variable Adapter utilitzada en el Recycler View.
     private Adapter adapter;
+
+    // Declaració de les variables lligades a la nova reserva.
     private Reserva reserva;
     private int time;
+    private String docID;
 
+    // Declaració de variables auxiliars.
     private int lastPos = -1, lastTurn = -1;
 
+    // Declaració de Llistes.
     private List<Turn> reservedHours;
     private List<String> reservedHoursList;
     private List<String> dbReservedHours;
@@ -61,38 +69,36 @@ public class ChooseHoursActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_hours);
 
+        // Es recuperen les dades que s'han transferit des de l'activitat ServiceActivity a partir de l'intent.
         Intent intent = getIntent();
         reserva = (Reserva) intent.getSerializableExtra("reserva");
 
+        // Creació de llistes buides.
         reservedHours = new ArrayList<>();
         dbReservedHours = new ArrayList<>();
 
+        // Es recupera un String array que recopila els strings corresponents a les hores que es poden reservar.
         String[] array = getResources().getStringArray(R.array.hours);
 
+        // S'inicialitza la llista de torns reservedHours amb camps buits i longitud igual a l'array.
         for (int i = 0; i < array.length; i++) {
             reservedHours.add(new Turn(array[i]));
         }
 
-        //reservedHours.get(4).reserved[0]=true;
-
         String[] ReservationTime = reserva.getTime().split(" ");
         this.time = Integer.parseInt(ReservationTime[0]);
 
-        Date date = reserva.getDate();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String[] sdate = dateFormat.format(date).split("/");
-        String docID = sdate[2] + sdate[1] + sdate[0];
+        docID = setDocID();
 
+        // S'obtenen les referències als objectes del layout.
         RecyclerView hourListView = findViewById(R.id.HourListView);
 
+        // Configuració del RecyclerView amb un LayoutManager i un Adapter.
         hourListView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter();
         hourListView.setAdapter(adapter);
 
-        //TODO: Conectar la base de datos de Firestore con la App y ver las horas ocupadas.
-
-        // Se añade un Listener con el que obtenemos las horas reservadas en todos los turnos de una fecha de la colección de reservas de la base de datos.
-
+        // S'afegeix un Listener amb el que obtenim les hores reservades en tots els torns d'una data de la col·leció de reserves de la base de dades.
         turnsRef= db.collection("reservas").document(docID).collection("turnos");
 
         turnsRef.get()
@@ -110,11 +116,20 @@ public class ChooseHoursActivity extends AppCompatActivity {
                 });
     }
 
+    // Aquest métode retorna l'ID del document en format YYYYMMDD, per tal de facilitar el seu filtratge i ordenació a la base de dades.
+    @NonNull
+    private String setDocID() {
+        Date date = reserva.getDate();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String[] sdate = dateFormat.format(date).split("/");
+        return sdate[2] + sdate[1] + sdate[0];
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        // Se añade un Listener que nos avisa cada vez que la colección de Firestore (Firebase) sufre algun cambio.
+        // S'afegeix un Listener que ens avisa cada vegada que la col·lecció de Firestore (Firebase) pateix qualsevol canvi.
         turnsRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
@@ -122,18 +137,21 @@ public class ChooseHoursActivity extends AppCompatActivity {
                     Log.d("dbError",e.toString());
                     return;
                 }
-                    OmpleTornsOcupats(documentSnapshots);
+                // Es crida al mètode OmpleTornsOcupats
+                OmpleTornsOcupats(documentSnapshots);
 
             }
         });
     }
 
+    // Aquest mètode carrega la llista d'hores reservades amb les dades dels documents corresponents a les reserves de la data seleccionada.
     private void OmpleTornsOcupats(QuerySnapshot documentSnapshots) {
         dbReservedHours.clear();
         for (DocumentSnapshot doc : documentSnapshots) {
-                reservedHoursList = (List<String>) doc.get("reservedHours");
-                dbReservedHours.addAll(reservedHoursList);
+            reservedHoursList = (List<String>) doc.get("reservedHours");
+            dbReservedHours.addAll(reservedHoursList);
         }
+        // Es miren totes les hores de la llista dbReservedHours, i es posa a true el camp reserved de tots els torns (reservedHours) corresponents.
         for (int j = 0; j < dbReservedHours.size(); j++){
             String[] dbHour = dbReservedHours.get(j).split(":");
             int dbTurn = -1;
@@ -147,7 +165,7 @@ public class ChooseHoursActivity extends AppCompatActivity {
                 if ((dbHour[0]+":").equals(reservedHours.get(k).hour)) reservedHours.get(k).reserved[dbTurn] = true;
             }
         }
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged(); // Es notifica a l'adaptador de que s'han actualitzat les dades de la llista de torns reservedHours.
     }
 
     private int calcCheckedTurns() {
@@ -200,13 +218,13 @@ public class ChooseHoursActivity extends AppCompatActivity {
         boolean prevValue = reservedHours.get(pos).checked[turn];
         boolean isReserved = reservedHours.get(pos).reserved[turn];
 
-        // He clicado un quarter reservado
+        // S'ha clicat un quarter reservat.
         if (isReserved) {
             return;
         }
 
         clearQuarters();
-        // El clicado el mismo que antes
+        // S'ha clicat el mateix que l'anterior.
         if (pos == lastPos && turn == lastTurn && prevValue) {
             adapter.notifyDataSetChanged();
             return;
@@ -225,8 +243,6 @@ public class ChooseHoursActivity extends AppCompatActivity {
 
         lastPos = pos;
         lastTurn = turn;
-
-        //adapter.notifyDataSetChanged();
     }
 
     public void onClickNext(View view) {

@@ -25,18 +25,21 @@ import java.util.Date;
 
 public class ServiceActivity extends AppCompatActivity {
 
-    private Reserva reserva;
-
+    // Declaració de les variables lligades al layout de l'activitat.
     private RadioGroup projectUseView, serviceTypeView;
     private RadioButton btn_academic, btn_personal, btn_autoservice, btn_PROservice;
     private TextView chosenMaterial, chosenTime, chosenDate;
     private EditText editThickness;
     private ImageView logoView;
 
-    private int year, month, day;
+    // Declaració de les variables lligades a la nova reserva.
+    private Reserva reserva;
 
+    // Declaració de les variables utilitzades per a mostrar la data actual i l'escollida al DatePickerDialog.
+    private int year, month, day;
     private final Calendar calendar = Calendar.getInstance();
 
+    // Declaració de variables booleanes per a comprobar si s'han omplert tots els camps.
     private boolean fieldsChecked = false;
 
 
@@ -46,8 +49,10 @@ public class ServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
 
+        // Creació d'un nou objecte de la classe Reserva.
         reserva = new Reserva();
 
+        // S'obtenen les referències als objectes del layout.
         projectUseView = findViewById(R.id.ProjectUseView);
         serviceTypeView = findViewById(R.id.ServiceTypeView);
 
@@ -60,30 +65,31 @@ public class ServiceActivity extends AppCompatActivity {
         chosenTime = findViewById(R.id.ChosenTime);
         chosenDate = findViewById(R.id.ChosenDate);
 
-
         editThickness = findViewById(R.id.EditThickness);
-        editThickness.setFilters(new InputFilter[]{new InputFilterMinMax(0,10)});
+        editThickness.setFilters(new InputFilter[]{new InputFilterMinMax(0,10)}); // S'afegeix un filte al camp EditThickness per a evitar que el client introdueixi un valor superior a 10 mm o un valor negatiu.
+
+        logoView = findViewById(R.id.LogoView);
 
         // Es predefineixen els valors d'alguns dels camps que cal omplir.
         chosenMaterial.setText("DM");
         chosenTime.setText("30 min");
         editThickness.setText("3");
 
+        // Es guarda la data actual dins de les variables year, month i day.
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        // Per tal d'actualitzar el valor de chosenDate que es mostra per pantalla, cal crear un String utilitzant les variables year, month i day, de tipus int.
         String sactualdate = Integer.toString(day) + "/" + Integer.toString(month + 1) + "/" + Integer.toString(year);
         chosenDate.setText(sactualdate);
 
         try {
-            Date actualdate = new SimpleDateFormat("dd/MM/yyyy").parse(sactualdate);
+            Date actualdate = new SimpleDateFormat("dd/MM/yyyy").parse(sactualdate); // Dins de la variable actualdate es guarda la data actual en format Date, utilitzant el patró dd/MM/yyyy.
             reserva.setDate(actualdate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        logoView = findViewById(R.id.LogoView);
 
         Glide.with(this)
                 .load("file:///android_asset/FABLABlogo.png")
@@ -94,13 +100,14 @@ public class ServiceActivity extends AppCompatActivity {
 
     public void onClickChooseHour(View view) {
 
+        // Crida al mètode OmpleReserva()
         OmpleReserva();
 
-        if (fieldsChecked) {
-            Intent intent = new Intent(this,ChooseHoursActivity.class);
-            intent.putExtra("reserva", reserva);
-            startActivityForResult(intent,0);
-        } else {
+        if (fieldsChecked) { // Si s'han omplert tots els camps correctament:
+            Intent intent = new Intent(this,ChooseHoursActivity.class); // Es crea un nou intent que ha de cridar a l'activitat ChooseHoursActivity.
+            intent.putExtra("reserva", reserva);  // S'introdueixen l'objecte reserva dins de l'intent.
+            startActivityForResult(intent,0); // Es crida a l'activitat ChooseHoursActivity.
+        } else {  // Si falten camps per omplir apareix un quadre de diàleg avisant al client de que cal omplir tots els camps per a poder continuar.
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.missing_statements_message);
 
@@ -116,6 +123,7 @@ public class ServiceActivity extends AppCompatActivity {
 
     }
 
+    // Aquest métode omple els camps de l'objecte reserva amb les dades entrades per l'usuari i les mostra per pantalla.
     private void OmpleReserva() {
 
         fieldsChecked = true;
