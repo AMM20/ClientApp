@@ -49,6 +49,9 @@
         <item>Metacrilat</item>
         <item>Altres</item>
     </array>
+    <string name="try_again">TORNA A PROVAR</string>
+    <string name="error_upload_message">No s\'ha pogut pujar la reserva a la base de dades.</string>
+    <string name="error_reading_database_message">No s\'ha pogut llegir la base de dades</string>
 
 
 </resources>

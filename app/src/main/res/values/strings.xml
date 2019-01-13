@@ -28,6 +28,9 @@
     <string name="missing_turns_message">Missing turns to select.</string>
     <string name="reserved_turns_message">Reserved turns can\'t be selected.</string>
     <string name="successful_reservation_message">Your reservation has been completed.</string>
+    <string name="error_upload_message">Unable to upload the reservation to database.</string>
+    <string name="error_reading_database_message">Unable to read the database.</string>
+    <string name="try_again">TRY AGAIN</string>
     <string name="invalid_email_message">Enter a valid email.</string>
 
     <!-- DetailsActivity -->

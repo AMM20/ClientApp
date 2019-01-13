@@ -111,6 +111,15 @@ public class ChooseHoursActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ChooseHoursActivity.this);
+                        builder.setMessage(R.string.error_reading_database_message);
+
+                        builder.setPositiveButton(R.string.try_again, null);
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
                         Log.d("dbError",e.toString());
                     }
                 });

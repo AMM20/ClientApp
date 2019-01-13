@@ -171,6 +171,15 @@ public class SummaryActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {// En el cas de que falli la càrrega del document, es mostra un error al Log.
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SummaryActivity.this);
+                        builder.setMessage(R.string.error_upload_message);
+
+                        builder.setPositiveButton(R.string.try_again, null);
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
                         Log.w("dbError", "Error writing document", e);
                     }
                 });

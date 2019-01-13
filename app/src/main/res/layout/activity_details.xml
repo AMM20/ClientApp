@@ -131,7 +131,7 @@
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:inputType="phone"
+        android:inputType="number"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/NotesLabel"
